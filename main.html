@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="css/app/main.css">
+  <link rel="stylesheet" type="text/css" href="css/app/task.css">
+  <link rel="stylesheet" type="text/css" href="css/app/task_editor.css">
+  <link rel="stylesheet" type="text/css" href="css/app/task_conteneur.css">
+  <link rel="stylesheet" type="text/css" href="css/system/Finder.css">
+  <link rel="stylesheet" type="text/css" href="css/system/Toolbox.css">
+  <!-- <link rel="stylesheet" type="text/css" href="css/system/main.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/system/common.css">
+  <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-ui.min.css">
+  <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-jquery-ui.structure.min.css">
+  <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-jquery-ui.theme.min.css">
+
+
+  <!-- Scripts système -->
+  <script type="text/javascript">
+
+  </script>
+  <script type="text/javascript" src="js/system/jquery/jquery.js"></script>
+  <script type="text/javascript" src="js/system/jquery/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/system/jquery/jquery.caretposition.js"></script>
+  <script type="text/javascript" src="js/system/Log.js"></script>
+  <script type="text/javascript" src="js/system/common.js"></script>
+  <script type="text/javascript" src="js/system/Message.js"></script>
+  <script type="text/javascript" src="js/system/WAA.js"></script>
+  <script type="text/javascript" src="js/system/AbstractTableClass.js"></script>
+  <script type="text/javascript" src="js/system/dom.js"></script>
+  <script type="text/javascript" src="js/system/date.js"></script>
+  <script type="text/javascript" src="js/system/Finder.js"></script>
+  <script type="text/javascript" src="js/system/TableDisplay.js"></script>
+  <script type="text/javascript" src="js/system/SelectionManager.js"></script>
+  <script type="text/javascript" src="js/system/interactif.js"></script>
+</head>
+<body>
+
+<header>
+  <span id="app-name">Dashboard</span>
+</header>
+
+<!-- CONTENEUR PRINCIPAL POUR LES TÂCHES DU JOUR -->
+<div id="container-tasks-main" class="task-conteneur main" data-type="main">
+  <header>
+    <input type="text" id="task-filter-search" placeholder="🔍" />
+    <select id="task-filter">
+      <option id="task-filter-current" value="current">tâches courantes</option>
+      <option id="task-filter-all" value="all">Toutes les tâches</option>
+      <option id="task-filter-outdated" value="outdated">tâches dépassées</option>
+      <option id="task-filter-future" value="future">tâches futures</option>
+      <option id="task-filter-future" value="undated">tâches sans échéances</option>
+      <option id="task-filter-future" value="masked">tâches masquées</option>
+      <option disabled>--- Sélectionnée ---</option>
+      <option id="task-filter-same-categorie" value="same-categorie">tâches de catégorie</option>
+      <option id="task-filter-linked" value="linked">tâches liées</option>
+    </select>
+  </header>
+  <div class="task-list"></div>
+  <footer>
+    <button class="btn-add" title="Créer une nouvelle tâche">➕
+    </button><button class="btn-sup" disabled title="Détruire définitivement la tâche (sans l'archiver)">🗑️
+    </button><button class="btn-pin" disabled title="Épingler ou désépingler la tâche sélectionnée">📌
+    </button><button class="btn-msk" disabled title="Masquer (pour cette session) la tâche sélectionnée">👻
+    </button><button class="btn-run" disabled title="Accomplir la tâche sélectionnée">▶️
+    </button><button class="btn-tog" disabled title="Déployer la tâche pour voir ses détails">🗃️
+    </button><button class="btn-lnk" disabled title="Pour chainer la tâche à une autre">🔗
+    </button><button class="btn-acc" disabled title="Marquer la tâche sélectionnée comme accomplie">✅
+    </button><button class="btn-mod" disabled title="Éditer (modifier) la tâche sélectionnée">🖌️
+    </button>
+  </footer>
+</div><!-- /conteneur tâche principal -->
+
+<!-- CONTENEUR DES TÂCHES ÉPINGLÉES (à faire aujourd'hui) -->
+<div id="container-tasks-pinned" class="task-conteneur" data-type="pinned">
+  <div class="task-list"></div>
+</div>
+<!-- CONTENEUR POUR METTRE LES TÂCHES DU JOUR ACCOMPLIES -->
+<div id="container-tasks-done" class="task-conteneur" data-type="done">
+  <div class="task-list"></div>
+</div>
+
+<!-- ÉDITEUR DE TÂCHE -->
+<div id="task-editor" class="hidden">
+  <form>
+    <label class="main">Tâche #<span id="task-displayed-id"></span></label>
+    <input type="hidden" id="task-id">
+    <input type="hidden" id="task-prev">
+    <input type="hidden" id="task-duree">
+    <input type="text" id="task-resume" class="plain">
+    <div id="task-dates">
+      <span>Du </span><input type="text" id="task-start">
+      <span>au </span><input type="text" id="task-end">
+      <span>ou durée </span>
+      <select id="task-duree-nombre"></select>
+      <select id="task-duree-unite">
+        <option value="">…</option>
+        <option value="d">jours</option>
+        <option value="h">heures</option>
+        <option value="w">semaines</option>
+        <option value="m">mois</option>
+      </select>
+    </div>
+    <div>
+      <select id="task-priority">
+        <option value="">Priorité…</option>
+        <option value="1">Faible</option>
+        <option value="3">Moyenne</option>
+        <option value="5">Élevée</option>
+      </select>
+      <select id="task-cat"></select>
+    </div>
+    <label class="main">Sous-tâches</label>
+    <textarea id="task-todo" class="plain"></textarea>
+    <label class="main">Action</label>
+    <button id="btn-try-action" class="small fright">Essayer</button><select id="task-atype"></select>
+    <textarea id="task-action" class="plain"></textarea>
+  </form>
+  <div class="buttons">  
+    <button id="task-editor-btn-cancel">Annuler</button>
+    <button id="task-editor-btn-save">Enregistrer</button>
+  </div>
+</div>
+<!-- /ÉDITEUR DE TÂCHE -->
+
+<!-- TOOLBOX -->
+<div id="toolbox">
+  
+</div>
+<!-- /TOOLBOX -->
+
+<footer id="main"></footer>
+
+</body>
+<script type="text/javascript" src="js/app/constants.js"></script>
+<script type="text/javascript" src="js/app/App/Events.js"></script>
+<script type="text/javascript" src="js/app/Messages/errors_and_messages.fr.js"></script>
+<script type="text/javascript" src="js/app/Messages/Messages_et_errors.js"></script>
+<script type="text/javascript" src="js/app/App/UI.js"></script>
+<script type="text/javascript" src="js/app/App/ready.js"></script>
+<script type="text/javascript" src="js/app/Task/TaskEditor.js"></script>
+<script type="text/javascript" src="js/app/Task/TaskConteneur.js"></script>
+<script type="text/javascript" src="js/app/Task/TaskFilter.js" defer></script>
+<script type="text/javascript" src="js/app/Task/TaskLinker.js" defer></script>
+<script type="text/javascript" src="js/app/Task/TaskButton.js"></script>
+<script type="text/javascript" src="js/app/Task/TaskSearch.js"></script>
+<script type="text/javascript" src="js/app/Task/Task.js" defer></script>
+<script type="text/javascript" src="js/app/Task/Categorie.js" defer></script>
+<script type="text/javascript" src="js/app/App/App.js" defer></script>
+<script type="text/javascript" src="js/app/App/Toolbox.js" defer></script>
+<script type="text/javascript" src="js/test/Test.js" defer></script>
+</html>
