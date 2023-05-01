@@ -11,10 +11,7 @@ class App {
     */
     UI.prepare()
 
-    /*
-    |  Affichage de ce qu'il y a à faire aujourd'hui
-    */
-    WAA.mode_test || Task.loadAndDisplayAllTasks()
+    Combo.prepareFirstCombo()
 
   }
 
@@ -24,8 +21,6 @@ class App {
   * Pour le moment, utilisé seulement par les tests
   */
   static resetAll(){
-    Task.reset()
-    Categorie.reset()
 
   }
 

@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
-  <link rel="stylesheet" type="text/css" href="css/app/main.css">
+  <title>Film Analyzor</title>
   <link rel="stylesheet" type="text/css" href="css/system/Finder.css">
   <link rel="stylesheet" type="text/css" href="css/system/Toolbox.css">
   <!-- <link rel="stylesheet" type="text/css" href="css/system/main.css"> -->
@@ -12,6 +11,8 @@
   <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-jquery-ui.structure.min.css">
   <link rel="stylesheet" type="text/css" href="js/system/jquery/jquery-jquery-ui.theme.min.css">
+  <link rel="stylesheet" type="text/css" href="css/app/main.css">
+  <link rel="stylesheet" type="text/css" href="css/app/combo.css">
 
 
   <!-- Scripts système -->
@@ -39,6 +40,36 @@
   <span id="app-name">Film Analyzor</span>
 </header>
 
+<!-- PREMIER COMBO -->
+<div id="combos">
+  
+<div id="combo-1" class="combo">
+  <table>
+    <tr>
+      <td>
+        <video width="400"><source src="movie.mp4" type="video/mp4"></video>
+      </td>
+      <td>
+        <textarea class="analyse"></textarea>      
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="timecode">0:00:00:000</span>
+        <button class="btn-play btn-controller">▶️</button>
+        <button class="btn-pause btn-controller">⏸️</button>  
+      </td>
+      <td>
+        <input type="text" class="zero-time" placeholder="Temps première image" titre="Temps de la première image">
+      </td>
+    </tr>
+  </table>
+  
+  
+</div>
+
+</div>
+
 
 <!-- TOOLBOX -->
 <div id="toolbox">
@@ -50,12 +81,15 @@
 
 </body>
 <script type="text/javascript" src="js/app/constants.js"></script>
+<script type="text/javascript" src="config.js"></script>
 <script type="text/javascript" src="js/app/App/Events.js"></script>
 <script type="text/javascript" src="js/app/Messages/errors_and_messages.fr.js"></script>
 <script type="text/javascript" src="js/app/Messages/Messages_et_errors.js"></script>
 <script type="text/javascript" src="js/app/App/UI.js"></script>
 <script type="text/javascript" src="js/app/App/ready.js"></script>
 <script type="text/javascript" src="js/app/App/App.js" defer></script>
+<script type="text/javascript" src="js/app/Combo/Combo.js" defer></script>
+<script type="text/javascript" src="js/app/Combo/Video.js" defer></script>
 <script type="text/javascript" src="js/app/App/Toolbox.js" defer></script>
 <script type="text/javascript" src="js/test/Test.js" defer></script>
 </html>
