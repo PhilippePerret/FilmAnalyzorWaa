@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Film Analyzor</title>
+  <script type="text/javascript">
+    class Video {
+      static play(){
+        this.video.play()
+      }
+      static pause(){
+        this.video.pause()
+        this.writeTimecode()
+      }
+      static writeTimecode(){
+        this.timecodeField.innerHTML = this.video.currentTime
+      }
+
+      static get video(){
+        return this._video || (this._video = document.querySelector('video', this.viewer))
+      }
+      static get timecodeField(){
+        return this._tcfield || (this._tcfield = document.querySelector('.timecode', this.viewer))
+      }
+      static get viewer(){
+        return this._obj || (this._obj = document.querySelector('#viewer-1'))
+      }
+    }
+
+  </script>
+</head>
+<body>
+<div id="viewer-1" class="viewer">
+  <video width="400">
+    <source src="movie.mp4" type="video/mp4">
+  </video>
+  <input type="text" name="zero" class="zero-time">
+  <div class="timecode"></div>
+  <button onclick="Video.play()">Play</button>
+  <button onclick="Video.pause()">Pause</button>
+  
+</div>
+</body>
+</html>
