@@ -73,6 +73,8 @@ class Textor {
       break
     case 'sq': /* - Écrire SÉQUENCE au curseur - */
       this.remplaceSnippet('SEQUENCE'+RET, 2)
+    default:
+      Personnage.traiteSnippet(this, snip)
     }
   }
   remplaceSnippet(str, snippetLen = 1){

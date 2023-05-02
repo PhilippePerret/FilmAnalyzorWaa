@@ -11,15 +11,15 @@ div#container-personnages div.buttons {
   margin-top:1em;
 }
 
-div#container-personnages #personnages .personnage input.dim {
+div#container-personnages #personnages .personnage .dim { /* input & span entête */
   width: 40px;
 }
-div#container-personnages #personnages .personnage input.pseudo {
+div#container-personnages #personnages .personnage .pseudo {
   width: 100px;
 }
-div#container-personnages #personnages .personnage input.patronyme {
+div#container-personnages #personnages .personnage .patronyme {
   width: 200px;
 }
-div#container-personnages #personnages .personnage input.description {
+div#container-personnages #personnages .personnage .description {
   width: 400px;
 }
