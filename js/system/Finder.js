@@ -145,7 +145,7 @@ class Finder {
     this.boutonOuvrir  = DCreate('BUTTON', {text:'Ouvrir…'})
     this.boutonOuvrir.addEventListener('click', this.onClickBoutonOuvrir.bind(this))
     this.boutonChoisir = DCreate('BUTTON', {text:'Choisir'})
-    this.boutonChoisir.addEventListener('click', this.onClickBoutonChoisir.bind(this))
+    listen(this.boutonChoisir, 'click', this.onClickBoutonChoisir.bind(this))
     this.boutonInFavoris = DCreate('BUTTON', {class:'btn-in-favoris', text:'❤︎ ⇤', title:"Mettre dans les favoris"})
     this.boutonInFavoris.addEventListener('click', this.onClickAddInFavoris.bind(this))
     this.menuFavoris = DCreate('SELECT', {class:'menu-favoris'})
@@ -289,7 +289,8 @@ class Finder {
     */
     if ( this.wantedType == this.selected.type ){
       this.showBoutonChoisir()
-    } else if (this.selected.type == 'folder') {
+    }
+    if (this.selected.type == 'folder') {
       this.showBoutonOuvrir()
     }
     // - toujours pour les favoris -

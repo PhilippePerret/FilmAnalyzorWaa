@@ -11,6 +11,10 @@ class Textor {
     this.observe()
   }
 
+  get content(){
+    return this.field.value
+  }
+
   /*
   |  Volatile Data Methods
   */

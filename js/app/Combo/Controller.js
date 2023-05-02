@@ -125,7 +125,7 @@ class Controller {
   onChooseOption(ev){
     switch(this.menuOptions.value){
     case 'zero-absolu':
-      console.warn("Je dois apprendre à régler le zéro absolu")
+      Analyse.current.setZeroAbsolu(this.currentTime)
       break;
     default:
       console.warn("Option inconnue : ", this.menuOptions.value)
