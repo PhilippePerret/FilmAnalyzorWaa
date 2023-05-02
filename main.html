@@ -34,6 +34,7 @@
   <script type="text/javascript" src="js/system/SelectionManager.js"></script>
   <script type="text/javascript" src="js/system/interactif.js"></script>
   <script type="text/javascript" src="js/system/Time.js"></script>
+  <script type="text/javascript" src="js/system/Textarea.js"></script>
 </head>
 <body>
 
@@ -52,9 +53,6 @@
           <source src="http://localhost/FilmAnalyzor/empty.mp4" type="video/mp4">
         </video>
         <progress value="0" min="0" max="100">
-        <select class="menu-options">
-          <option value="zero-absolu"><span>Zéro absolu</span><span class="value">0:00:00:00</span></option>
-        </select>
       </td>
       <td>
         <textarea class="textor"></textarea>      
@@ -62,6 +60,10 @@
     </tr>
     <tr>
       <td>
+        <select class="menu-options">
+          <option value="">Options</option>
+          <option value="zero-absolu"><span>Zéro absolu : </span><span class="value">0:00:00:00</span></option>
+        </select>
         <span class="horloge">0:00:00:00</span>
         <button class="btn-play btn-controller">▶️</button>
         <button class="btn-stop btn-controller">⏹️</button>  

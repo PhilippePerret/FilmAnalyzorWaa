@@ -6,7 +6,37 @@ class Controller {
   }
 
   prepare(){
+    this.defineDomElements()
     this.observe()
+  }
+
+  /*
+  |  --- Action Methods ---
+  */
+
+  /**
+  * Pour aller au temps défini par +secs+
+  */
+  goTo(secs){
+    this.currentTime = secs
+  }
+
+  /**
+  * Pour remonter le temps
+  */
+  moveBackward(shift, alt) {
+    var cran ;
+    if ( shift ) cran = 1
+    else if ( alt ) cran = 10
+    else cran = 5 / 100
+    this.currentTime = this.currentTime - cran
+  }
+  moveForward(shift, alt) {
+    var cran ;
+    if ( shift ) cran = 1
+    else if ( alt ) cran = 10
+    else cran = 5 / 100
+    this.currentTime = this.currentTime + cran
   }
 
   togglePlay(){
@@ -92,14 +122,29 @@ class Controller {
     return stopEvent(ev)
   }
 
+  onChooseOption(ev){
+    switch(this.menuOptions.value){
+    case 'zero-absolu':
+      console.warn("Je dois apprendre à régler le zéro absolu")
+      break;
+    default:
+      console.warn("Option inconnue : ", this.menuOptions.value)
+    }
+    this.menuOptions.selectedIndex = 0
+  }
+
   observe(){
-    this.btnPlay = DGet('.btn-play', this.combo.obj)
-    this.btnStop = DGet('.btn-stop', this.combo.obj)
     listen(this.btnPlay,'click', this.onClickPlay.bind(this))
     listen(this.btnStop,'click', this.onClickStop.bind(this))
     listen(this.progress,'click', this.onClickProgress.bind(this))
+    listen(this.menuOptions,'change', this.onChooseOption.bind(this))
   }
 
+  defineDomElements(){
+    this.btnPlay      = DGet('.btn-play', this.combo.obj)
+    this.btnStop      = DGet('.btn-stop', this.combo.obj)
+    this.menuOptions  = DGet('select.menu-options', this.combo.obj)
+  }
 
   get progress(){return this._progress || (this._progress = DGet('progress',this.combo.obj))}
   get horloge(){return this._horloge || (this._horloge = DGet('.horloge',this.combo.obj))}

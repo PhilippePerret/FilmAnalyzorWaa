@@ -1,32 +1,95 @@
-# Dashboard — Manuel
+# Film Analyzor — Manuel
 
 ## Présentation
 
-**Dashboard** est une application WAA qui permet de gérer ses tâches mieux que tout autre application, notamment par le fait qu'elle permet de lancer n'importe quel processus à partir d'une tâche (n'importe lequel, vraiment).
+**Film Analyzor** est une application WAA qui permet d'analyser confortablement les films en offrant quelques outils utiles.
 
-## Édition de la tâche
+## Utilisation rapide
 
-`cmd-s` pour enregistrer la tâche éditée.
+> Cette partie décrit une utilisation rapide de l’application pour une (re)prise en main rapide.
+
+#### Préparation
+
+* la vidéo doit être au format `mp4`
+* elle doit être placée dans le dossier `me/Sites/FilmAnalyzor`
+* on lance l’application à l’aide de la commande `analyse-film` (ou en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
+* quand la vidéo est prête on peut commencer à analyser le film
+
+#### Définition des personnages
+
+Pour une écriture plus rapide, on peut définir les personnages du film, qui deviendront des snippets. C’est-à-dire que si « JOHN » est représenté par « J », il suffira de taper `J[TAB]` dans l’analyse pour écrire le personnage sans erreur et rapidement.
+
+{À implémenter}
+
+#### Analyse du film
+
+* la première chose à faire est de **définir le zéro-absolu du film**. Par convention, on le définit à la toute première image :
+
+  * faire défiler le film jusqu’à la première image,
+
+  * se servir des raccourcis `⌘ J` et `⌘ L` pour ajuster la position,
+
+  * dans le menu « Options » sous la vidéo principale, choisir l’item « Zéro absolu »
+
+  * => Sa valeur est mise au temps courant
+
+    > Noter que cela ne change en rien les temps affichés ou imprimés dans le texte de l’analyse. Mais cela servira à produire le texte final ainsi qu’à calculer la structure.
+
+* Se placer dans le champ de texte pour commencer l’analyse
+
+* On peut indiquer un premier temps en jouant le snippet `t[TAB]`. Cela écrit le temps courant sur la ligne du curseur. **Surtout, ne rien mettre d’autre que ce temps sur la ligne**.
+
+* Si c’est une scène, ajouter simplement « SCENE » sur la ligne (par exemple avec le snippet `s[TAG]`), 
+
+* rédiger la description de la scène, si c’est une scène
+
+---
+
+## La vidéo
+
+* La vidéo de référence doit être au format `mp4`.
+* elle doit se trouver dans le dossier `/me/Sites/FilmAnalyzor` (donc dans mon dossier site)
 
 
 
-## Lier les tâches
+---
 
-On peut lier des tâches, de cette manière :
+## Raccourcis clavier
 
-* une tâche ne sera déclenchée que lorsqu’une autre tâche sera marquée finie (ou supprimée) (rapport 1 pou 1),
-* une tâche sera déclenchée lorsque plusieurs tâches seront marquées finies (ou supprimées) (rapport de x pour 1)
-* une tâche finie (ou supprimée) déclenchera plusieurs tâches (rapport de 1 pour x)
+L’application comporte de nombreux raccourcis clavier qui permettent de contrôler la vidéo.
 
-### Pour lier deux tâches
+| Description                                                  | Raccourci |
+| ------------------------------------------------------------ | --------- |
+| Mettre en route la lecture                                   | ⌘ K       |
+| Une image en arrière (vidéo courante)                        | ⌘ J       |
+| Une seconde en arrière                                       | ⌘ ⇧ J     |
+| Une image en avant                                           | ⌘ L       |
+| Une seconde en avant                                         | ⌘ ⇧ L     |
+| Mettre la vidéo courante au premier time-code avant le curseur ([comprendre](#goto-time-avant-cursor) | ⌘ G       |
+| Basculer vers l’autre vidéo                                  | ⌃ v       |
 
-* sélectionner la tâche à lier (c’est toujours la tâche suivante, qu’il faut lier à la tâche précédente)
-* cliquer sur le bouton 🔗,
-* choisir la tâche précédente comme le demande la boite de dialogue,
-* confirmer.
 
-### Pour délier deux tâches
 
-* sélectionner la tâche à délier de sa précédente,
-* cliquer sur le bouton 🔗,
-* choisir de délier la tâche.
+<a name="goto-time-avant-cursor"></a>
+
+### Aller au temps du curseur
+
+Quand on se trouve à un endroit dans le texte de l’analyse, on peut demander au contrôleur de rejoindre la scène dont il est question en jouant le raccourci clavier `⌘ g`. 
+
+Pour ce faire, l’application remonte jusqu’à trouver le premier temps seul sur une ligne (qu’on a pu placer grâce au snippet `t` par exemple.
+
+
+
+---
+
+## Snippets
+
+Des snippets permettent de gérer facilement les éléments :
+
+> Tous ces snippets doivent être tapés puis suivis d'une touche tabulation.
+
+| Description | Snippet |
+| --- | --- |
+| Insert le temps courant sur la ligne | t |
+| Insert le mot-clé « SCENE » sur la ligne | s |
+| Insert le mot-clé « SEQUENCE » sur la ligne | sq |

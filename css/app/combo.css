@@ -3,9 +3,12 @@
 */
 div.combo {
   display:inline-block;
-  border:1px solid grey;
+  border:3px solid #CCCCCC;
   padding:0.5em;
   margin:0.5em;
+}
+div.combo.selected {
+  border-color: #67B1FF;
 }
 
 div.combo button.btn-controller {
