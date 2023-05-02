@@ -11,9 +11,9 @@ class Textor {
     this.observe()
   }
 
-  get content(){
-    return this.field.value
-  }
+  /* - Contenu de l'analyse - */
+  get content ( ){ return this.field.value}
+  set content (v){ this.field.value = v }
 
   /*
   |  Volatile Data Methods

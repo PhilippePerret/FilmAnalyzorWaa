@@ -29,5 +29,40 @@ class Analyse
     WAA.send({class:'Analyse.current',method:'onSaved', data:retour})
   end
 
+
+  def self.load(data)
+    analyse = new(data['path'])
+    WAA.send(class:'Analyse',method:'onLoad',data:analyse.data)
+  end
+
+
+
+###################       INSTANCE      ###################
+  
+  attr_reader :path
+
+  # @param [String] path Chemin d'accès au DOSSIER de l'analyse
+  # @note
+  #   Ce dossier devrait contenir :
+  #     - analyse.ana.txt     Texte de l'analyse
+  #     - data.ana.yaml       Données de l'analyse
+  #     - <nom film>.mp4      Fichiers du film
+  def initialize(path)
+    @path = path
+  end
+
+  def data
+    {
+      data: YAML.load_file(data_path),
+      texte: File.read(texte_path.gsub(/"/,'__GUIL__')),
+    }
+  end
+
+  def data_path
+    @data_path ||= File.join(path,'data.ana.yaml')
+  end
+  def texte_path
+    @texte_path ||= File.join(path,'texte.ana.txt')
+  end
 end #/class Analyse
 end #/module FilmAnalyzor

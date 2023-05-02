@@ -18,7 +18,8 @@ class Video {
   */
   load(src){
     this.isReady = false
-    this.source.src = src
+    this.source.src = 'http://localhost/FilmAnalyzor/' + src
+    this.loadSpash.classList.remove('hidden')
     this.obj.load()
   }
 
@@ -36,6 +37,7 @@ class Video {
       console.info("La vidéo #%s est prête.", this.combo.id)
       this.combo.controller.onVideoLoaded()
       this.combo.textor.onVideoLoaded()
+      this.loadSpash.classList.add('hidden')
       this.isReady = true
     } else {
 
@@ -51,8 +53,8 @@ class Video {
   */
   prepare(){
     console.log("-> Video#prepare", this.combo.id)
-    this.obj.setAttribute('width', VIDEO_WIDTH)
-    this.load('http://localhost/FilmAnalyzor/movie.mp4')
+    this.obj.setAttribute('width', this.combo.id == 1 ? VIDEO_WIDTH : VIDEO_WIDTH / 2)
+    this.load('movie.mp4')
   }
 
   observe(){
@@ -73,6 +75,8 @@ class Video {
   /*
   |  --- Fixed Data and Dom Elements ---
   */
+
+  get loadSpash(){return DGet('div.load-splash', this.combo.obj)}
 
   get source(){
     return this._source || (this._source = DGet('source', this.obj))

@@ -8,4 +8,4 @@ l'on glisse la souris sur l'élément) à mettre avant le texte pour
 qu'il n'apparaisse pas sous la souris */
 const MGTIT = "        "
 
-const RET = "\n\r"
+const RET = "\r\n"

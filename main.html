@@ -40,6 +40,7 @@
 
 <header>
   <span id="app-name">Film Analyzor</span>
+  <span id="titre-film"></span>
 </header>
 
 <!-- PREMIER COMBO -->
@@ -49,6 +50,7 @@
   <table>
     <tr>
       <td>
+        <div class="load-splash">La vidéo est en cours de chargement. Merci de patienter</div>
         <video width="400">
           <source src="http://localhost/FilmAnalyzor/empty.mp4" type="video/mp4">
         </video>
@@ -62,7 +64,7 @@
       <td>
         <select class="menu-options">
           <option value="">Options</option>
-          <option value="zero-absolu"><span>Zéro absolu : </span><span class="value">0:00:00:00</span></option>
+          <option class="zero" value="zero-absolu">Zéro absolu : 0:00:00:00</option>
         </select>
         <span class="horloge">0:00:00:00</span>
         <button class="btn-play btn-controller">▶️</button>
@@ -80,12 +82,14 @@
 
 
 <!-- TOOLBOX -->
-<div id="toolbox">
-  
-</div>
+<!-- <div id="toolbox"></div> -->
 <!-- /TOOLBOX -->
 
-<footer id="main"></footer>
+<footer id="main">
+  <button class="btn-manuel fleft">Manuel</button>
+  <button class="btn-open">Ouvrir…</button>
+  <button class="btn-save">Enregistrer</button>
+</footer>
 
 </body>
 <script type="text/javascript" src="js/app/constants.js"></script>
@@ -100,7 +104,7 @@
 <script type="text/javascript" src="js/app/Combo/Video.js" defer></script>
 <script type="text/javascript" src="js/app/Combo/Controller.js" defer></script>
 <script type="text/javascript" src="js/app/Combo/Textor.js" defer></script>
-<script type="text/javascript" src="js/app/App/Toolbox.js" defer></script>
+<!-- <script type="text/javascript" src="js/app/App/Toolbox.js" defer></script> -->
 <script type="text/javascript" src="js/app/Analyse.js" defer></script>
 <script type="text/javascript" src="js/test/Test.js" defer></script>
 </html>

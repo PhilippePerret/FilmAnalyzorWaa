@@ -5,4 +5,4 @@
 */
 
 /* Taille (pixels) des vidéos dans leur combo */
-const VIDEO_WIDTH = 600 ;
+const VIDEO_WIDTH = 1400 ;

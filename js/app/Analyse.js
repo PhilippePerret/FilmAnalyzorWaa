@@ -9,7 +9,61 @@
 class Analyse {
 
   static get current(){
-    return this._current || (this._current = new Analyse())
+    return this._current || (this._current )
+  }
+  static set current(analyse){ this._current = analyse }
+
+  static saveCurrent(){
+    this.current.save()
+  }
+  
+  /**
+  * Préparation de l'analyse
+  */
+  static prepare(){
+    Combo.prepareCombos()
+    this.observe()
+    // if ( ! this._current ) { this.open() }
+    this.open()
+  }
+
+  static observe(){
+    this.saveBtn = DGet('footer#main button.btn-save')
+    this.openBtn = DGet('footer#main button.btn-open')
+    this.manuelBtn = DGet('footer#main button.btn-manuel')
+    listen(this.saveBtn, 'click', this.saveCurrent.bind(this))
+    listen(this.openBtn, 'click', this.open.bind(this))
+    listen(this.manuelBtn, 'click', App.openManuel.bind(App))
+  }
+
+  /**
+  * Pour ouvrir une analyse
+  */
+  static open(path){
+    if ( path && path.type && path.type == 'folder' ) {
+      WAA.send({class:'FilmAnalyzor::Analyse',method:'load',data:{path:path.path}})
+    } else {
+      Finder.choose({wantedType:'folder'}).then(this.open.bind(this)).catch(err=>{console.log("Renoncement")})
+    }
+  }
+  /* Méthode appelée par le serveur au retour de la précédente */
+  static onLoad(retour){
+    this.current = new Analyse(retour)
+  }
+
+
+  constructor(data){
+    this.data   = data && data.data
+    console.log("Instanciation avec data = ", this.data)
+    this.texte  = data && data.texte
+  }
+
+  /*
+  |  Display Methods
+  */
+
+  setTitre(){
+    DGet('header span#titre-film').innerHTML = this.data.titre
   }
 
   /**
@@ -18,6 +72,7 @@ class Analyse {
   * Cela consiste à sauver son texte et ses données
   */
   save(){
+    console.log("data = ", this.data)
     if ( ! this.data.path ) {
       return Finder.choose({wantedType:'folder'}).then(finderElement => {
         this.data.path = finderElement.path
@@ -44,16 +99,36 @@ class Analyse {
     }
   }
 
+  /*
+  |  --- Definition Methods ---
+  */
   setZeroAbsolu(value){ 
     this.data.zero = value 
     this.save()
   }
   setTitreFilm(value){ this.data.titre = value; this.save() }
 
-  get data(){
-    return this._data || (this._data = {zero:null, titre:null, path: null})
+
+  /*
+  |  --- Functional Methods ---
+  */
+
+  /*
+  |  --- Data Methods ---
+  */
+
+  get data(){ return this._data || (this._data = {zero:null, titre:null, path: null, video: null}) }
+  set data(v) { 
+    this._data = v 
+    /*
+    |  On en profite pour dispatcher les informations
+    */
+    Combo.un.controller.showZeroAbsolu(this.data.zero)
+    this.setTitre()
+    Combo.un.video.load(this.data.video)
+    Combo.deux.video.load(this.data.video) // pour le moment, on met toujours la même vidéo
   }
-  get texte(){
-    return Combo.un.textor.content
-  }
+
+  get texte( )  { return Combo.un.textor.content }
+  set texte(str){ Combo.un.textor.content = str }
 }

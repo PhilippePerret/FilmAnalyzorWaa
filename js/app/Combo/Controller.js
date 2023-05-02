@@ -11,7 +11,7 @@ class Controller {
   }
 
   /*
-  |  --- Action Methods ---
+  |  --- Action/functional Methods ---
   */
 
   /**
@@ -41,16 +41,6 @@ class Controller {
 
   togglePlay(){
     if ( this.isPlaying ) {
-      this.controller.pause()
-    } else {
-      this.controller.play()
-    }
-    this.isPlaying = !this.isPlaying
-
-  }
-
-  togglePlay(){
-    if ( this.isPlaying ) {
       this.pause()
     } else {
       this.play()
@@ -71,9 +61,19 @@ class Controller {
     this.setButtons()
   }
 
+  /*
+  |  --- Display Methods ---
+  */
+
   setButtons(){
     this.btnPlay.innerHTML = this.isPlaying ? '⏸️' : '▶️'
+  }
 
+  /**
+  * Pour régler dans le menu d'option la valeur du zéro
+  */
+  showZeroAbsolu(secs){
+    DGet('option.zero', this.menuOptions).innerHTML = `zéro absolu : ${s2h(secs)}`
   }
 
   get currentTime() { return this.video.currentTime }

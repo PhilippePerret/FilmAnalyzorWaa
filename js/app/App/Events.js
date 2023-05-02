@@ -29,11 +29,11 @@ class KeyboardEventManager {
       case 'g': // se rendre au temps sous le curseur
         control.goTo(combo.textor.currentTime)
         return stopEvent(ev)
+      case 's': // sauvegarde de l'analyse
+        Analyse.current.save()
+        return stopEvent(ev)
       }
       // console.warn("[DOWN] Je dois apprendre à jouer le raccourci CMD + ", ev.key)
-    }
-    if ( ev.metaKey && ev.key == 's' ){
-      return stopEvent(ev)
     }
     return true
   }

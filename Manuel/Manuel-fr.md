@@ -4,6 +4,16 @@
 
 **Film Analyzor** est une application WAA qui permet d'analyser confortablement les films en offrant quelques outils utiles.
 
+
+
+---
+
+[TOC]
+
+---
+
+
+
 ## Utilisation rapide
 
 > Cette partie décrit une utilisation rapide de l’application pour une (re)prise en main rapide.
@@ -91,5 +101,5 @@ Des snippets permettent de gérer facilement les éléments :
 | Description | Snippet |
 | --- | --- |
 | Insert le temps courant sur la ligne | t |
-| Insert le mot-clé « SCENE » sur la ligne | s |
-| Insert le mot-clé « SEQUENCE » sur la ligne | sq |
+| Insert le mot-clé « SCENE » sur la ligne (reconnaissance d’une scène) | s |
+| Insert le mot-clé « SEQUENCE » sur la ligne (reconnaissance d’une séquence) | sq |

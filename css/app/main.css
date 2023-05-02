@@ -14,8 +14,8 @@ header {
   padding:0.5em;
 }
 
-header span#csv-file-name {
-  margin-left:2em;
+header span#titre-film {
+  color:#68ff53;
 }
 
 footer#main {

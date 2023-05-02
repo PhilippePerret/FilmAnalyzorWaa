@@ -5,16 +5,20 @@ class App {
 
   static onReady(){
 
-    console.info("WAA.mode_test = ", WAA.mode_test)
+    // console.info("WAA.mode_test = ", WAA.mode_test)
+    
     /*
     |  Préparation de l'interface
     */
     UI.prepare()
 
-    Combo.prepareCombos()
+    Analyse.prepare()
 
   }
 
+  static openManuel(){
+    window.open('Manuel/Manuel-fr.pdf','manuel')
+  }
   /**
   * Pour repartir à zéro
   * 
