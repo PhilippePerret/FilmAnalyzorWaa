@@ -2,10 +2,47 @@
   Styles du combo
 */
 div.combo {
-  
+  display:inline-block;
+  border:1px solid grey;
+  padding:0.5em;
+  margin:0.5em;
 }
 
 div.combo button.btn-controller {
   border: 0;
   background: none;
+  margin:0;
+  padding:0;
+  font-size: 28pt;
+  vertical-align: middle;
+}
+
+div.combo progress {
+  border-radius:0;
+  height:10px;
+  width:100%;
+  display:block;
+}
+
+div.combo span.horloge {
+  background-color:black;
+  color:white;
+  font-family: Courier;
+  font-size:14pt;
+  padding: 8px 24px 4px ;
+  vertical-align:middle;
+}
+
+div.combo textarea.textor {
+  width: 740px;
+  resize:none;
+}
+
+div.combo input.console {
+  width:calc(100% - 2*12px);
+  background-color:black;
+  color:white;
+  font-family:Courier;
+  font-size:14pt;
+  padding: 8px 12px 4px ;
 }

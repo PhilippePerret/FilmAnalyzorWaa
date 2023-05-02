@@ -11,7 +11,7 @@ class App {
     */
     UI.prepare()
 
-    Combo.prepareFirstCombo()
+    Combo.prepareCombos()
 
   }
 

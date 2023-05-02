@@ -2,7 +2,7 @@
 
 class Combo {
 
-  static prepareFirstCombo(){
+  static prepareCombos(){
     this.un = new Combo(1).prepare();
     this.deux = new Combo(2);
     this.deux.build().prepare()
@@ -17,33 +17,15 @@ class Combo {
   * --- Observer Methods ---
   */
 
-  onClickPlay(ev){
-    if ( this.isPlaying ) {
-      this.video.pause()
-    } else {
-      this.video.play()
-    }
-    this.isPlaying = !this.isPlaying
-    this.btnPlay.innerHTML = this.isPlaying ? '⏹️' : '▶️'
-    return stopEvent(ev)
-  }
-  onClickPause(ev){
-    this.video.pause()
-    this.isPlaying = false
-    return stopEvent(ev)
-  }
 
   prepare(){
-    this.video.set()
     this.observe()
+    this.video.prepare()
+    this.controller.prepare()
     return this // chainage
   }
 
   observe(){
-    this.btnPlay = DGet('.btn-play', this.obj)
-    this.btnPause = DGet('.btn-pause', this.obj)
-    listen(this.btnPlay,'click', this.onClickPlay.bind(this))
-    listen(this.btnPause,'click', this.onClickPause.bind(this))
   }
 
   build(){
@@ -53,10 +35,8 @@ class Combo {
     return this // chainage
   }
 
-  get video(){
-    return this._video || ( this._video = new Video(this) )
-  }
-  get obj(){
-    return this._obj || (this._obj = DGet(`#combo-${this.id}`))
-  }
+  get textor      (){ return this._textor || (this._textor = new Textor(this))}
+  get controller  (){return this._controller || (this._controller = new Controller(this))}
+  get video       (){return this._video || ( this._video = new Video(this) )}
+  get obj         (){return this._obj || (this._obj = DGet(`#combo-${this.id}`))}
 }

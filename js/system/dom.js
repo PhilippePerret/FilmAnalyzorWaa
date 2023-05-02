@@ -18,7 +18,11 @@ function unpx(valeur){
 
 
 function listen(objet, eventType, method){
-  objet.addEventListener(eventType, method)
+  try {
+    objet.addEventListener(eventType, method)
+  } catch(err) {
+    console.error("L'objet défini par ça est introuvable :", objet, err)
+  }
 }
 function unlisten(objet, eventType, method){
   objet.removeEventListener(eventType, method)
