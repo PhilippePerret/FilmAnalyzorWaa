@@ -3,11 +3,11 @@
 */
 div.combo {
   display:inline-block;
-  border:3px solid #CCCCCC;
+  border:4px solid #CCCCCC;
   padding:0.5em;
   margin:0.5em;
 }
-div.combo.selected {
+div.combo.selected textarea.textor {
   border-color: #67B1FF;
 }
 
@@ -18,6 +18,13 @@ div.combo button.btn-controller {
   padding:0;
   font-size: 28pt;
   vertical-align: middle;
+}
+
+div.combo video {
+  border: 8px solid transparent;
+}
+div.combo video.selected {
+  border-color: #67B1FF;
 }
 
 div.combo progress {
@@ -39,6 +46,8 @@ div.combo span.horloge {
 div.combo textarea.textor {
   width: 740px;
   resize:none;
+  padding: 0 16px;
+  border: 8px solid transparent;
 }
 
 div.combo input.console {

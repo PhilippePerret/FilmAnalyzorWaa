@@ -16,15 +16,21 @@ class Analyse {
   static saveCurrent(){
     this.current.save()
   }
-  
+
   /**
   * Préparation de l'analyse
   */
   static prepare(){
     Combo.prepareCombos()
+    Personnage.prepare()
     this.observe()
-    // if ( ! this._current ) { this.open() }
-    this.open()
+    /*
+    |  Ouverture
+    |  Pour la forcer, on renseigne les données
+    */
+    // const data = undefined
+    const data = {type:'folder', path:'/Users/philippeperret/Library/Mobile Documents/com~apple~CloudDocs/ECRITURE/Analyses/TheStraightStory'}
+    this.open(data)
   }
 
   static observe(){
@@ -53,7 +59,7 @@ class Analyse {
 
 
   constructor(data){
-    this.data   = data && data.data
+    this.data   = data && data.data // ça dispatche les données
     console.log("Instanciation avec data = ", this.data)
     this.texte  = data && data.texte
   }
@@ -72,7 +78,6 @@ class Analyse {
   * Cela consiste à sauver son texte et ses données
   */
   save(){
-    console.log("data = ", this.data)
     if ( ! this.data.path ) {
       return Finder.choose({wantedType:'folder'}).then(finderElement => {
         this.data.path = finderElement.path
@@ -85,6 +90,15 @@ class Analyse {
         , buttonCancel: {poursuivre: null}
       })
     }
+    if ( ! this.data.video ) {
+      return demander("Nom de la vidéo (nom seul)", "", {
+          buttonOk: {name:'Nom complet du fichier', poursuivre: (reponse) => {this.data.video = reponse; this.save.bind(this)}}
+        , buttonCancel: {poursuivre: null}
+      })
+    }
+    /* - Actualisation des données personnages - */
+    this.data.personnages = Personnage.getData()
+
     const waaData = {
       texte: this.texte, data: this.data
     }
@@ -117,7 +131,7 @@ class Analyse {
   |  --- Data Methods ---
   */
 
-  get data(){ return this._data || (this._data = {zero:null, titre:null, path: null, video: null}) }
+  get data(){ return this._data || (this._data = {zero:null, titre:null, path: null, video: null, personnages:null}) }
   set data(v) { 
     this._data = v 
     /*
@@ -127,6 +141,8 @@ class Analyse {
     this.setTitre()
     Combo.un.video.load(this.data.video)
     Combo.deux.video.load(this.data.video) // pour le moment, on met toujours la même vidéo
+    /* Les personnages */
+    Personnage.setData(this.data.personnages)
   }
 
   get texte( )  { return Combo.un.textor.content }

@@ -17,7 +17,8 @@ class Combo {
     this.un = new Combo(1).prepare();
     this.deux = new Combo(2);
     this.deux.build().prepare()
-    this.current = this.un
+    this.current  = this.un
+    Video.current = this.un.video
   }
 
   static set current(v) {

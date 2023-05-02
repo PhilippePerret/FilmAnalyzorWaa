@@ -17,7 +17,7 @@ class KeyboardEventManager {
       // return stopEvent(ev)
     } 
     if ( ev.metaKey ) {
-      const combo = Combo.current
+      const combo = Video.current.combo
       const control = combo.controller
       switch(ev.key){
       case 'j':case 'J':
@@ -26,9 +26,8 @@ class KeyboardEventManager {
         control.togglePlay();return stopEvent(ev)
       case 'l': case 'L':
         control.moveForward(ev.shiftKey, ev.ctrlKey);return stopEvent(ev)
-      case 'g': // se rendre au temps sous le curseur
-        control.goTo(combo.textor.currentTime)
-        return stopEvent(ev)
+      case 'g': // se rendre au temps voulu (cf. manuel)
+        control.goTo(Combo.current.textor.currentTime);return stopEvent(ev)
       case 's': // sauvegarde de l'analyse
         Analyse.current.save()
         return stopEvent(ev)
@@ -42,7 +41,7 @@ class KeyboardEventManager {
       // console.warn("[UP] Je dois apprendre à jouer le raccourci control + ", ev.key)
       switch(ev.key){
       case 'v':
-        Combo.toggleCurrent()
+        Video.toggleCurrentVideo()
         return stopEvent(ev)
       }
       return stopEvent(ev)

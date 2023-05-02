@@ -1,0 +1,25 @@
+div#container-personnages {
+  position: fixed;
+  top: 100px;
+  left: calc(50% - 300px);
+  background-color: white;
+  padding:1em;
+  opacity: 0.95;
+  box-shadow: 10px 10px 10px 10px grey;
+}
+div#container-personnages div.buttons {
+  margin-top:1em;
+}
+
+div#container-personnages #personnages .personnage input.dim {
+  width: 40px;
+}
+div#container-personnages #personnages .personnage input.pseudo {
+  width: 100px;
+}
+div#container-personnages #personnages .personnage input.patronyme {
+  width: 200px;
+}
+div#container-personnages #personnages .personnage input.description {
+  width: 400px;
+}

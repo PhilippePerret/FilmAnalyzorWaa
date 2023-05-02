@@ -96,7 +96,7 @@ class Textor {
     return stopEvent(ev)
   }
   onVideoLoaded(){
-    this.obj.style.height = px(this.combo.video.obj.offsetHeight)
+    this.obj.style.height = px(this.combo.video.obj.offsetHeight - 26)
   }
 
   observe(){

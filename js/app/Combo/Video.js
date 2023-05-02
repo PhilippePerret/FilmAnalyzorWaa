@@ -1,6 +1,16 @@
 'use strict';
 
 class Video {
+
+  static toggleCurrentVideo(){
+    this._current && this.current.deselect()
+    this.current = this.current.combo.id == 1 ? Combo.deux.video : Combo.un.video ;
+    this.current.select()
+  }
+
+  static get current(){ return this._current || Combo.un.video }
+  static set current(video) { this._current = video }
+
   constructor(combo){
     this.combo = combo
     this.observe()
@@ -8,6 +18,9 @@ class Video {
 
   show(){this.obj.classList.remove('hidden')}
   hide(){this.obj.classList.add('hidden')}
+  
+  select(){ this.obj.classList.add('selected')}
+  deselect(){this.obj.classList.remove('selected')}
 
   /*
   |  --- Functional Methods ---
@@ -52,9 +65,8 @@ class Video {
   * Préparation de la vidéo
   */
   prepare(){
-    console.log("-> Video#prepare", this.combo.id)
     this.obj.setAttribute('width', this.combo.id == 1 ? VIDEO_WIDTH : VIDEO_WIDTH / 2)
-    this.load('movie.mp4')
+    this.load('empty.mp4')
   }
 
   observe(){

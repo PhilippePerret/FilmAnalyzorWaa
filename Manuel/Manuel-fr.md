@@ -59,6 +59,7 @@ Pour une écriture plus rapide, on peut définir les personnages du film, qui de
 
 * La vidéo de référence doit être au format `mp4`.
 * elle doit se trouver dans le dossier `/me/Sites/FilmAnalyzor` (donc dans mon dossier site)
+* en fait, la déplacer simplement là quand on analyse le film ({TODO: À l’avenir, on pourra prévoir une procédure qui mette le film là, mais la copie risque d’être un peu longue…}
 
 
 

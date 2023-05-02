@@ -2,6 +2,7 @@
 
 class UI {
   static prepare(){
+    
     this.espaceButtonTitle()
   }
 
