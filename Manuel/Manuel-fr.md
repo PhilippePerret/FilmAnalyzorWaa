@@ -14,7 +14,7 @@
 
 <a name="preparation"></a>
 
-#### Préparation
+### Préparation
 
 * la vidéo doit être au format `mp4` (avec les sous-titres si nécessaire),
 * elle doit être placée dans le dossier `me/Sites/FilmAnalyzor`
@@ -123,7 +123,7 @@ L’application comporte de nombreux raccourcis clavier qui permettent de contr�
 
 <a name="goto-time-avant-cursor"></a>
 
-### Aller au temps du curseur
+### Aller au temps du curseur (dans la vidéo voulue)
 
 Quand on se trouve à un endroit dans le texte de l’analyse, on peut demander au contrôleur de rejoindre la scène dont il est question en jouant le raccourci clavier `⌘ g`. 
 

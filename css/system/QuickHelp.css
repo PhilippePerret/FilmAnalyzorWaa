@@ -24,12 +24,15 @@ div.panel div.tdm-container div.level1 {
   margin-left: 0;
 }
 div.panel div.tdm-container div.level2 {
-  margin-left: 1em;
+  margin-left: 0.5em;
 }
 div.panel div.tdm-container div.level3 {
-  margin-left: 2em;
+  margin-left: 1em;
 }
 div.panel div.tdm-container div.level4 {
-  margin-left: 3em;
+  margin-left: 1.5em;
+}
+div.panel div.tdm-container div.level5 {
+  margin-left: 2em;
 }
 
