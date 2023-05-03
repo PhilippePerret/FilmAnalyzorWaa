@@ -122,6 +122,7 @@ class Waa {
       var v = data_message.data[k]
       if ( 'string' == typeof v ) {
         v = v.replace(/__GUIL__/g, '"')
+        v = v.replace(/\\n/g, "\n")
         data_message.data[k] = v
       }
     }

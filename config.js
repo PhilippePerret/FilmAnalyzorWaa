@@ -6,3 +6,6 @@
 
 /* Taille (pixels) des vidéos dans leur combo */
 const VIDEO_WIDTH = 1400 ;
+
+/* Chemin d'accès à l'aide */
+const HELP_TEXT = 'Manuel/Manuel-fr.md'

@@ -45,9 +45,25 @@ div.panel li p {
 div.panel code {
   font-family: monospace;
   font-size: 0.85em;
+  background-color: #EEEEEE;
 }
 
 div.panel pre {
   background-color: #EDEDED;
   padding: 1em;  
+}
+
+div.panel table {
+  border:1px solid #BBBBBB;
+}
+div.panel table thead th {
+  font-weight: bold;
+}
+div.panel table td {
+  padding: 0.3em 1em;
+}
+
+div.panel table thead tr,
+div.panel table tr:nth-child(even) {
+  background-color:#EEEEEE;
 }

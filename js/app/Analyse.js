@@ -39,7 +39,7 @@ class Analyse {
     this.manuelBtn = DGet('footer#main button.btn-manuel')
     listen(this.saveBtn, 'click', this.saveCurrent.bind(this))
     listen(this.openBtn, 'click', this.open.bind(this))
-    listen(this.manuelBtn, 'click', App.openManuel.bind(App))
+    listen(this.manuelBtn, 'click', QuickHelp.toggle.bind(QuickHelp))
   }
 
   /**

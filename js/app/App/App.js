@@ -17,9 +17,6 @@ class App {
 
   }
 
-  static openManuel(){
-    window.open('Manuel/Manuel-fr.pdf','manuel')
-  }
   /**
   * Pour repartir à zéro
   * 
