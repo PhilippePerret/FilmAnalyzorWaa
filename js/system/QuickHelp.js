@@ -22,11 +22,12 @@
 * 
 * @requis
 *   - ce module system/QuickHelp.js
-*   - le module system/QuickHelp.css de mise en forme
+*     le module system/QuickHelp.css de mise en forme
+*     le module system/QuickHelp.rb (côté serveur)
 *   - Panel.js (gestion des panneaux)
 *   - Panel.css 
 *   - marked.min.js (parse du code markdown)
-*   - définition de HELP_TEXT par l'application.
+*   - définition de HELP_TEXT par l'application (texte ou chemin).
 * 
 * @contenu HELP_TEXT
 * 
@@ -78,7 +79,7 @@ class QuickHelp {
       this.build(HELP_TEXT)
     } else {
       /* - Texte donné par chemin d'accès - */
-      WAA.send({class:'System',method:'get_quick_help', data:{path:HELP_TEXT}})
+      WAA.send({class:'WaaApp::QuickHelp',method:'get_help_text', data:{path:HELP_TEXT}})
     }
   }
   static onGetCode(retour){

@@ -1,6 +1,8 @@
 'use strict';
 
-const HELP_TEXT = `
+const HELP_TEXT = 'Manuel/Manuel-fr.md'
+
+const HELP_TEXT_RAW = `
 
 
 ---

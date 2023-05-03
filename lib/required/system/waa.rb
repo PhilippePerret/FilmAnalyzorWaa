@@ -41,8 +41,21 @@ class Waa
     puts "WAA.send: Data envoyée :" + data.pretty_inspect if verbose?
     data = data.to_json if not(data.is_a?(String))
     data = data.gsub(/"/,'\\"')
+    data = data.gsub(/\`/,'\\\\`')
     data = data.gsub(/\\n/,'\\\\\\n')
-    resultat = driver.execute_script('return WAA.receive("'+data+'")')
+    begin
+      resultat = driver.execute_script('return WAA.receive("'+data+'")')
+    rescue Exception => e
+      puts "\n\n#######".rouge
+      puts "Impossible d'envoyer les données suivantes :".rouge
+      puts "#######".rouge
+      puts data.rouge
+      puts "#######".rouge
+      puts "MESSAGE D'ERREUR : #{e.inspect}".rouge
+      puts "#######".rouge
+      puts "BACKTRACE : \n#{e.backtrace.join("\n")}".rouge
+      puts "#######".rouge
+    end
   end
 
   ##
