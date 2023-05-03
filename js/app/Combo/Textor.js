@@ -69,18 +69,28 @@ class Textor {
       this.remplaceSnippet(s2h(this.combo.controller.currentTime) + RET)
       break
     case 's': /* - Écrire SCENE au curseur - */
-      this.remplaceSnippet('SCENE'+RET)
+      this.remplaceSnippet('SCENE',)
       break
     case 'sq': /* - Écrire SÉQUENCE au curseur - */
-      this.remplaceSnippet('SEQUENCE'+RET, 2)
+      this.remplaceSnippet('SEQUENCE', 2)
+    case 'o': 
+      this.remplaceSnippet('OBJECTIF')
     default:
       Personnage.traiteSnippet(this, snip)
     }
   }
-  remplaceSnippet(str, snippetLen = 1){
+
+  /**
+  * @param [String] str Le texte à placer
+  * @param [Integer] snippetLen La longueur du snippet à supprimer
+  * @param [Boolean] interact Si true, il faut ajouter " DESCRIPTION" après le texte à placer, et le sélectionner, pour définir une description
+  */
+  remplaceSnippet(str, snippetLen = 1, interact = true){
     const it = this.itextarea;
+    if ( interact ) str += " DESCRIPTION"
     it.select(it.selStart - snippetLen, it.selStart)
     it.replaceSelection(str, 'end')
+    interact && it.select(it.selStart - 11, it.selStart)
   }
 
 

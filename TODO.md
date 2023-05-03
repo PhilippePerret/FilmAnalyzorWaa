@@ -1,9 +1,6 @@
 # Todo list
 
-* création d'un nouveau personnage
-* suppression d'un personnage (attention à id = 1 => ne pas supprimer les champs)
-* CMD-P pour ouvrir la fenêtre des personnages
-
+* Pour les snippets de type "scène", ajouter un DESCRIPTION pour les décrire, après le snippet, en le sélectionnant
 * CMD-S pour obtenir la liste des scènes
 * menu auto-actualiser des scènes
 
