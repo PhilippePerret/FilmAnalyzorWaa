@@ -39,9 +39,22 @@ class Waa
   # 
   def send(data)
     puts "WAA.send: Data envoyée :" + data.pretty_inspect if verbose?
-    data = data.to_json if not(data.is_a?(String))
+    if not(data.is_a?(String))
+      # On procède à des correction
+      # 
+      data[:data].each do |k, v|
+        # puts "data[#{k.inspect}] = #{v.inspect}::#{v.class}"
+        if v.is_a?(String)
+          v = v.gsub(/"/,'__GUIL__')
+          data[:data].merge!(k => v)
+        end
+      end
+      data = data.to_json
+    else
+      puts "data est un string… Il ne vaudrait mieux pas.".orange
+    end
     data = data.gsub(/"/,'\\"')
-    data = data.gsub(/\`/,'\\\\`')
+    # data = data.gsub(/\`/,'\\\\`')
     data = data.gsub(/\\n/,'\\\\\\n')
     begin
       resultat = driver.execute_script('return WAA.receive("'+data+'")')

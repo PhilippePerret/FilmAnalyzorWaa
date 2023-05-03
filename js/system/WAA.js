@@ -114,6 +114,17 @@ class Waa {
       console.error(err_msg)
       return erreur(err_msg) 
     }
+    /*
+    |  Corrections à faire sur data_message.data (pour que le
+    |  texte passe)
+    */
+    for(var k in data_message.data) {
+      var v = data_message.data[k]
+      if ( 'string' == typeof v ) {
+        v = v.replace(/__GUIL__/g, '"')
+        data_message.data[k] = v
+      }
+    }
     // 
     // Appeler la méthode définie par le message, avec les 
     // données définies (if any)

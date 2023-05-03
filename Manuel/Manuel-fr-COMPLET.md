@@ -1,5 +1,7 @@
 # Film Analyzor — Manuel
 
+<a name="presentation"></a>
+
 ## Présentation
 
 **Film Analyzor** est une application WAA qui permet d'analyser confortablement les films en offrant quelques outils utiles.
@@ -12,11 +14,13 @@
 
 ---
 
-
+<a name="quick-use"></a>
 
 ## Utilisation rapide
 
 > Cette partie décrit une utilisation rapide de l’application pour une (re)prise en main rapide.
+
+<a name="preparation"></a>
 
 #### Préparation
 

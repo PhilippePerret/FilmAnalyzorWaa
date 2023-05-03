@@ -12,7 +12,7 @@ class QuickHelp
       help_path = File.join(APP_FOLDER, help_path)
     end
     if File.exist?(help_path)
-      retour.merge!(help_text: "%Q{#{File.read(help_path)}}")
+      retour.merge!(help_text: "#{File.read(help_path)}")
     else
       retour[:ok] = false
       retour[:msg] = "Le fichier d'aide '#{data['path']}' est introuvable."

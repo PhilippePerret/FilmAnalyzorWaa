@@ -40,8 +40,11 @@ class QuickHelp {
   * Masquer/Afficher l'aide
   */
   static toggle(){
-    this.isBuilt || this.build()
-    this.panel.toggle()
+    if ( this.isBuilt ) {
+      this.panel.toggle()
+    } else {
+      this.build_and_show()
+    }
   }
 
   /**
@@ -53,14 +56,21 @@ class QuickHelp {
   * 
   */  
   static display(params){
-    this.isBuilt || this.build()
-    this.panel.show()
+    if ( this.isBuilt ) {
+      this.panel.show()  
+    } else {
+      this.build_and_show()
+    }
   }
 
   /*
   |  --- Building Methods ---
   */
 
+  /* Juste pour la sémantique */
+  static build_and_show(){
+    this.build()
+  }
   /**
   * Construction de l'aide
   */
@@ -69,8 +79,9 @@ class QuickHelp {
       this.getCode()  
     } else {
       this.buildTdm(code_help)
-      this.buildPanel()
+      this.buildPanel(code_help)
       this.isBuilt = true
+      this.panel.show()
     }
   }
   static getCode(){
@@ -83,6 +94,7 @@ class QuickHelp {
     }
   }
   static onGetCode(retour){
+    console.log("retour : ", retour)
     if (retour.ok) {
       this.build(retour.help_text)
     } else { 
@@ -90,9 +102,9 @@ class QuickHelp {
     }
   }
 
-  static buildPanel(){
+  static buildPanel(code_help){
     this._panel = new Panel(this.dataPanel)
-    this._panel.setContent(this.TOC + marked.parse(HELP_TEXT))
+    this._panel.setContent(this.TOC + marked.parse(code_help))
   }
 
   static get panel(){ return this._panel }
