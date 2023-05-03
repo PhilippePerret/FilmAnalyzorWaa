@@ -5,24 +5,31 @@ div#quickhelp.panel {
 
 div.panel div.tdm-container {
   border: 1px solid #CCCCCC;
-  padding: 2em;
+  padding: 1em 2em;
 }
 
 div.panel div.tdm-container div.tdm {
 
 }
-div.panel div.tdm-container div.tdm a
+div.panel div.tdm-container div.tdm a,
 div.panel div.tdm-container div.tdm a:link, 
 div.panel div.tdm-container div.tdm a:visited, 
-div.panel div.tdm-container div.tdm a:hover, {
+div.panel div.tdm-container div.tdm a:hover {
   text-decoration:none;
   color:inherit;
+  font-size:0.85em;
 }
 
 div.panel div.tdm-container div.level1 {
   margin-left: 0;
 }
 div.panel div.tdm-container div.level2 {
-  margin-left: 1;
+  margin-left: 1em;
+}
+div.panel div.tdm-container div.level3 {
+  margin-left: 2em;
+}
+div.panel div.tdm-container div.level4 {
+  margin-left: 3em;
 }
 

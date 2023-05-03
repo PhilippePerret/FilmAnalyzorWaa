@@ -33,7 +33,7 @@ class KeyboardEventManager {
       case 'p': // panneau des personnages
         Personnage.show(); return stopEvent(ev)
       case 'h': // Aide
-        stopEvent(ev); Help.toggle(); return false;
+        stopEvent(ev); QuickHelp.toggle(); return false;
       }
       // console.warn("[DOWN] Je dois apprendre à jouer le raccourci CMD + ", ev.key)
     }

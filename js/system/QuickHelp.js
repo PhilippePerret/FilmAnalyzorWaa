@@ -39,12 +39,8 @@ class QuickHelp {
   * Masquer/Afficher l'aide
   */
   static toggle(){
-    if ( this.isOpened ) {
-      this.panel.hide()
-    } else {
-      this.display()
-    }
-    this.isOpened = !this.isOpened
+    this.isBuilt || this.build()
+    this.panel.toggle()
   }
 
   /**
@@ -73,6 +69,7 @@ class QuickHelp {
     } else {
       this.buildTdm(code_help)
       this.buildPanel()
+      this.isBuilt = true
     }
   }
   static getCode(){

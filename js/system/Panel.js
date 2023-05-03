@@ -76,6 +76,14 @@ class Panel {
     this.show()
   }
 
+  toggle(){
+    if ( this.isVisible ) {
+      this.hide()
+    } else {
+      this.show()
+    }
+  }
+
   /**
   * Affichage du panneau
   */
@@ -83,6 +91,7 @@ class Panel {
     this.isBuilt || this.build()
     this.obj.classList.remove('hidden')
     this.constructor.addToStack(this)
+    this.isVisible = true
   }
   /**
   * Masquage du panneau
@@ -90,6 +99,7 @@ class Panel {
   hide(){
     this.obj.classList.add('hidden')
     this.constructor.removeFromStack(this)
+    this.isVisible = false
   }
 
   // --- Private Methods ---

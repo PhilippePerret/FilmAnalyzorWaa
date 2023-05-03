@@ -30,7 +30,6 @@ Pour procéder à l'analyse d'un film :
   video: <nom du fichier de la vidéo>
   ~~~
 
----
 * dans ce dossier, créer également un fichier \`texte.ana.txt\` qui peut rester vide (il contiendra le texte de l'analyse)
 
 ---

@@ -36,3 +36,18 @@ div.panel div.tools button {
 div.panel div.tools button.btn-cancel {
   float: left;
 }
+
+div.panel li p {
+  margin: 0;
+  padding: 0;
+}
+
+div.panel code {
+  font-family: monospace;
+  font-size: 0.85em;
+}
+
+div.panel pre {
+  background-color: #EDEDED;
+  padding: 1em;  
+}
