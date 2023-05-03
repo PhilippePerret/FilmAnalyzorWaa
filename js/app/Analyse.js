@@ -60,7 +60,6 @@ class Analyse {
 
   constructor(data){
     this.data   = data && data.data // ça dispatche les données
-    console.log("Instanciation avec data = ", this.data)
     this.texte  = data && data.texte
   }
 

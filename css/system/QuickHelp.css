@@ -1,0 +1,28 @@
+div#quickhelp.panel {
+
+}
+/* Les items de table des matières */
+
+div.panel div.tdm-container {
+  border: 1px solid #CCCCCC;
+  padding: 2em;
+}
+
+div.panel div.tdm-container div.tdm {
+
+}
+div.panel div.tdm-container div.tdm a
+div.panel div.tdm-container div.tdm a:link, 
+div.panel div.tdm-container div.tdm a:visited, 
+div.panel div.tdm-container div.tdm a:hover, {
+  text-decoration:none;
+  color:inherit;
+}
+
+div.panel div.tdm-container div.level1 {
+  margin-left: 0;
+}
+div.panel div.tdm-container div.level2 {
+  margin-left: 1;
+}
+

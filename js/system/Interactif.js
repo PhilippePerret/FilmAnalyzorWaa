@@ -54,8 +54,10 @@ class InteractiveElement {
     this.hide()
     if ( this.params.buttonCancel.poursuivre ) {
       this.params.buttonCancel.poursuivre.call(null)
-    } else {
+    } else if (this.params.poursuivre) {
       this.params.poursuivre.call(null, false)
+    } else {
+      /* Sinon on ne fait rien */
     }
     return stopEvent(e)
   }

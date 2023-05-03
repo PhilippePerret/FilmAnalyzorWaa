@@ -101,6 +101,7 @@ class Panel {
   * Définir le contenu principal
   */
   setContent(content){
+    this.isBuilt || this.build()
     if ( content instanceof Array ) content = content.join("<br>")
     DGet('.content', this.obj).innerHTML = content
   }

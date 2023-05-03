@@ -1,8 +1,13 @@
 # Todo list
 
-* Pour les snippets de type "scène", ajouter un DESCRIPTION pour les décrire, après le snippet, en le sélectionnant
+* Faire un module Système "QuickHelp" qui fonctionne à partir d'un texte en markdown (qu'on pourrait remonter du serveur)
+  Bien préciser la différence avec Help.js (qui me semble bien compliqué…)
+    * faire un QuickHelp.css notamment pour :
+      - la table des matières (div.tdm.levelX)
+      - les blocks-code
+
 * CMD-S pour obtenir la liste des scènes
-* menu auto-actualiser des scènes
+* menu auto-actualisé des scènes ?… Non, je préfère cmd-s
 
 
 * Au chargement d'une analyse, vérifier si le fichier vidéo est bien placé dans le dossier Sites/FilmAnalyzor et si ça n'est pas le cas, faire une copie en remontant l'information d'attente

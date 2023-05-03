@@ -32,6 +32,8 @@ class KeyboardEventManager {
         Analyse.current.save(); return stopEvent(ev)
       case 'p': // panneau des personnages
         Personnage.show(); return stopEvent(ev)
+      case 'h': // Aide
+        stopEvent(ev); Help.toggle(); return false;
       }
       // console.warn("[DOWN] Je dois apprendre à jouer le raccourci CMD + ", ev.key)
     }

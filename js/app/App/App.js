@@ -2,7 +2,8 @@
 
 class App {
 
-
+  static get NAME(){ return 'Film Analyzor' }
+  
   static onReady(){
 
     // console.info("WAA.mode_test = ", WAA.mode_test)

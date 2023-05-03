@@ -14,17 +14,29 @@
 *   Help.export()               Exporter le fichier md de l'aide
 * 
 *   Help.search(<what>,<option>)  Faire une recherche dans l'aide
+*                               Si <what> n'est pas fourni, on ouvre un champ interactif pour définir la recherche.
 *   
 * 
 * Le module fonctionne avec la définition, par l'application, de la
-* constante DATA_HELP qui va fournir toutes les informations sur
+* constante HELP_DATA qui va fournir toutes les informations sur
 * l'aide.
+* 
+* HELP_DATA = {
+*   metadata: {app: "<nom de l'application>"}
+*   root: {
+*     cle1: "<définition>",
+*     cle2: {
+*       etc.
+*     }
+*   }
+* }
 * 
 * REQUIS
 * ------
 *   * fichier 'help.css'
 *   * donnée HELP_DATA définissant l'aide propre à l'application
 *   * Librairie jQuery
+*   * Librairie Panel (la mienne)
 *   * Librairie marked (pour interpréter le markdown)
 *     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
@@ -72,7 +84,9 @@ class Help {
   static search(what, options){
     options = options || {}
     const what_init = what
-    if ( what.match(/\+/) ) {
+    if ( ! what ) {
+      return demander("Que faut-il chercher ?", "", {buttonOk: {name:"Chercher", poursuivre:this.searchFromPrompt.bind(this)}})
+    } else if ( what.match(/\+/) ) {
       what = what.split('+')
       options.all = true
     } else if ( what.match(/,/) ) {
@@ -89,6 +103,11 @@ class Help {
       this.afficher(headerResultat)
       message("Aucun texte d'aide n'a été trouvé.")
     }
+  }
+
+  static searchFromPrompt(what){
+    console.info("On doit chercher %s dans l'aide", what)
+    this.search(what)
   }
 
   /**
@@ -175,7 +194,7 @@ class Help {
         } else if ( not(value) ) {
           // on s'arrête là
         } else {
-          traverseTextNode(value, what, method, false)
+          this.traverseTextNode(value, searched, method, false)
         }
       }
     }
