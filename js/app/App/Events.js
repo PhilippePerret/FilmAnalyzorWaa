@@ -29,8 +29,9 @@ class KeyboardEventManager {
       case 'g': // se rendre au temps voulu (cf. manuel)
         control.goTo(Combo.current.textor.currentTime);return stopEvent(ev)
       case 's': // sauvegarde de l'analyse
-        Analyse.current.save()
-        return stopEvent(ev)
+        Analyse.current.save(); return stopEvent(ev)
+      case 'p': // panneau des personnages
+        Personnage.show(); return stopEvent(ev)
       }
       // console.warn("[DOWN] Je dois apprendre à jouer le raccourci CMD + ", ev.key)
     }

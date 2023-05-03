@@ -21,7 +21,8 @@ class Personnage {
     listen(this.btnSet,'click',this.onSet.bind(this))
     this.btnToggle = DGet('footer#main button.btn-persos')
     listen(this.btnToggle, 'click', this.onToggle.bind(this))
-
+    this.btnClose = DGet('button.btn-close',this.container)
+    listen(this.btnClose,'click',this.hide.bind(this))
   }
 
   static onToggle(ev){
@@ -38,6 +39,10 @@ class Personnage {
 
   /**
   * @return [Hash] La table à enregistrer dans les données de l'application
+  * 
+  * @note
+  *   On ne prend que les lignes qui définissent au moins un dim et
+  *   un pseudo
   */
   static getData(){
     const liste_persos = []
@@ -48,7 +53,7 @@ class Personnage {
         , patronyme: DGet('input.patronyme', div).value
         , description: DGet('input.description', div).value
       }
-      dperso.dim && liste_persos.push(dperso)
+      dperso.dim && dperso.pseudo && liste_persos.push(dperso)
     })
     return liste_persos
   }
@@ -56,14 +61,20 @@ class Personnage {
   /**
   * À l'inverse de la précédente, cette méthode reçoit les données
   * personnages de l'analyse et les dispatche
+  * 
   */
   static setData(data){
-    if ( !data ) return ;
-    var newId = 0
-    data.forEach(dperso => {
-      new Personnage(Object.assign(dperso,{id: ++newId})).buildEditingRow()
-    })
-    this.defineSnippetsTable()
+    if ( data ) {    
+      data.forEach(dperso => {
+        new Personnage(Object.assign(dperso,{id:this.getNewId()})).buildEditingRow()
+      })
+    }
+    this.update()
+  }
+
+  static getNewId(){
+    this.lastId || ( this.lastId = 0 )
+    return ++ this.lastId
   }
 
   /*
@@ -76,19 +87,24 @@ class Personnage {
   */
   static onSet(ev){
     this.hide()
-    this.defineSnippetsTable()
+    this.update()
     return stopEvent(ev)
   }
   /**
   * Méthode appelée pour ajouter un personnage
   */
   static onAdd(ev){
-    console.warn("Je dois apprendre à créer un personnage.")
+    new Personnage({id:this.getNewId()}).buildEditingRow()
     return stopEvent(ev)
   }
 
   static get firstEditingRow(){return DGet('div#perso-1',this.listing)}
 
+  static update(){
+    this.items = this.getData()
+    this.count = this.items.length
+    this.defineSnippetsTable(this.items)
+  }
 
   /*
   |  Snippet Methods
@@ -99,9 +115,9 @@ class Personnage {
     this.snippetTable[snippet] && textor.remplaceSnippet(this.snippetTable[snippet] + ' ', snippet.length)
   }
 
-  static defineSnippetsTable(){
+  static defineSnippetsTable(personnages){
     this.snippetTable = {}
-    this.getData().forEach( dperso => {
+    personnages.forEach( dperso => {
       Object.assign(this.snippetTable, {[dperso.dim]: dperso.pseudo})
     })
   }
@@ -109,9 +125,25 @@ class Personnage {
 /* ------------------ INSTANCE ------------------------- */
 
 constructor(data){
-  console.info("data personnages = ", data)
   this.data = data
   this.id = this.data.id
+}
+
+/**
+* Méthode appelée pour supprimer le personnage
+*/
+onSup(ev){
+  if ( this.id > 1 || Personnage.count > 1) this.row.remove()
+  else {
+    /* On vide seulement les champs */
+    this.reset()
+  }
+  Personnage.update() // pour actualiser les snippets, notamment
+  return stopEvent(ev)
+}
+
+reset(){
+  this.row.querySelectorAll('input[type="text"]').forEach( i => i.value = "")
 }
 
 /**
@@ -130,14 +162,26 @@ buildEditingRow(){
     console.error("Impossible d'obtenir la rangée personnage de #%s",this.id)
     return
   }
+  this.row = row
+  /*
+  |  On observe la rangée
+  */
+  this.observe()
   /*
   |  On met ses données à l'intérieur de la rangée
+  |  Mais à la création, data ne contient que :id. Donc pour
+  |  s'assurer que les champs soient bien vidés, on utilise reset()
+  |  même si ça fait doublon.
   */
+  this.reset()
   for ( var k in this.data ) {
     if ( k == 'id' ) continue ;
-    DGet(`input.${k}`, row).value = this.data[k]
+    DGet(`input.${k}`, row).value = this.data[k] || ''
   }
 }
 
+observe(){
+  listen(DGet('button.btn-sup', this.row), 'click', this.onSup.bind(this))
+}
 
 }

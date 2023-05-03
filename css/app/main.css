@@ -44,3 +44,10 @@ div.explication {padding:1em;}
 
 .fright {float:right;}
 .fleft {float:left;}
+
+div.buttons {
+  margin-top:1em;
+}
+div.buttons button + button {
+  margin-right: 12px;
+}

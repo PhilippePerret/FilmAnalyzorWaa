@@ -9,7 +9,7 @@ GEM
     pretty_inspect (1.4.0)
     rexml (3.2.5)
     rubyzip (2.3.2)
-    selenium-webdriver (4.9.0)
+    selenium-webdriver (4.8.6)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -24,7 +24,7 @@ DEPENDENCIES
   erb (~> 4.0.0)
   fileutils (~> 1.7.0)
   pretty_inspect (~> 1.4.0)
-  selenium-webdriver (~> 4.8)
+  selenium-webdriver (~> 4.8.0)
   yaml (~> 0.2.0)
 
 RUBY VERSION
