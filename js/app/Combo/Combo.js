@@ -19,7 +19,11 @@ class Combo {
     this.deux.build().prepare()
     this.current  = this.un
     Video.current = this.un.video
+    this.all    = [this.un, this.deux]
+    this.table  = {1: this.un, 2: this.deux} 
   }
+
+  static get(combo_id){ return this.table[combo_id] }
 
   static set current(v) {
     this._current && this._current.onBlur()

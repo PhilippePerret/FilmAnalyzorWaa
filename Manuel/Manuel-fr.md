@@ -30,6 +30,7 @@
 
 * dans ce dossier, créer également un fichier \`texte.ana.txt\` qui peut rester vide (il contiendra le texte de l'analyse)
 * on lance l’application à l’aide de la commande `analyse-film` (ou, si la commande n'est pas installée, en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
+* régler les paramètres du navigateur pour autoriser les commandes de lecture ([voir pour Firefox]( https://mzl.la/3pbxA8a)),
 * quand la vidéo est chargée, on peut commencer à [analyser le film](#analyser-film).
 
 <a name="personnages"></a>
@@ -91,15 +92,50 @@ Pour l'identifier, on procède ainsi :
 
 ---
 
+<a name="ui"></a>
+
+## L’interface
+
+<a name="combos"></a>
+
+### Les combos
+
+Les parties principales de l’interface sont les deux « combos » qui contiennent l’image de la vidéo. Ils sont constitués :
+
+* d’une fenêtre pour l’image de la vidéo,
+* d’un contrôleur qui permet de régler l’image de la vidéo (avec les boutons de démarrage, etc.)
+* un menu d’options
+* un champ pour entrer l’analyse (pour le moment, seul le champ du premier combo est utile.
+
+<a name="menu-options"></a>
+
+#### Menu options
+
+C’est le menu qui se trouve tout à gauche sous la fenêtre de la vidéo. Il permet de régler toutes les options concernant l’analyse ou la fenêtre vidéo courante.
+
+---
+
 <a name="video"></a>
 
-## La vidéo
+## La vidéo du film
 
 * La vidéo de référence doit être au format `mp4`.
 * elle doit se trouver dans le dossier `/me/Sites/FilmAnalyzor` (donc dans mon dossier site)
 * en fait, la déplacer simplement là quand on analyse le film ({TODO: À l’avenir, on pourra prévoir une procédure qui mette le film là, mais la copie risque d’être un peu longue…}
 
+---
 
+<a name="operations"></a>
+
+## Opérations
+
+#### Définir le « zéro absolu »
+
+Le « zéro absolu » de la vidéo (c’est-à-dire la première image) se règle dans le premier [menu options](#menu-options) du premier [combo](#combos). C’est le premier menu. Il suffit de se placer sur cette première image et d’appeler ce menu.
+
+#### Régler le démarrage automatique
+
+Pour que la vidéo se mette en route quand on rejoint un temps quelconque, l’auto-démarrage doit être activé dans le [menu des options du combo](#menu-options). Noter que chaque combo peut avoir son propre réglage.
 
 ---
 

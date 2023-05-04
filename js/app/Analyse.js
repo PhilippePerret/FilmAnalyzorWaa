@@ -72,8 +72,8 @@ class Analyse {
   }
 
   /**
-  * Sauvegarde de l'analyse
-  * -----------------------
+  * Sauvegarde complète de l'analyse
+  * --------------------------------
   * Cela consiste à sauver son texte et ses données
   */
   save(){
@@ -98,6 +98,9 @@ class Analyse {
     /* - Actualisation des données personnages - */
     this.data.personnages = Personnage.getData()
 
+    /* - Actualisation des données vidéo - */
+    this.data.videos = Video.getData()
+
     const waaData = {
       texte: this.texte, data: this.data
     }
@@ -112,13 +115,16 @@ class Analyse {
     }
   }
 
+  get isModified(){ return this._ismodified }
+  set isModified(v) {
+    console.log("-> ismodified")
+    this._ismodified = v
+    Analyse.saveBtn.classList[v ? 'add' : 'remove']('warn')
+  }
+
   /*
   |  --- Definition Methods ---
   */
-  setZeroAbsolu(value){ 
-    this.data.zero = value 
-    this.save()
-  }
   setTitreFilm(value){ this.data.titre = value; this.save() }
 
 
@@ -136,12 +142,13 @@ class Analyse {
     /*
     |  On en profite pour dispatcher les informations
     */
-    Combo.un.controller.showZeroAbsolu(this.data.zero)
     this.setTitre()
     Combo.un.video.load(this.data.video)
     Combo.deux.video.load(this.data.video) // pour le moment, on met toujours la même vidéo
     /* Les personnages */
     Personnage.setData(this.data.personnages)
+    /* Les options des vidéos */
+    Video.setData(this.data.videos)
   }
 
   get texte( )  { return Combo.un.textor.content }

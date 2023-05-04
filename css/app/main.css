@@ -51,3 +51,8 @@ div.buttons {
 div.buttons button + button {
   margin-right: 12px;
 }
+
+button.warn {
+  background-color: #f54444;
+  color:white;
+}

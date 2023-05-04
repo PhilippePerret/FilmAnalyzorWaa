@@ -9,7 +9,33 @@ class Video {
   }
 
   static get current(){ return this._current || Combo.un.video }
-  static set current(video) { this._current = video }
+  static set current(video) { 
+    this._current = video 
+    this.current.select()
+  }
+
+  /**
+  * Pour appliquer les données des vidéos
+  * (et notamment les options et le point courant)
+  */
+  static setData(data){
+    if (!data) return
+    for ( var combo_id in data ) {
+      const combo = Combo.get(combo_id)
+      combo && combo.video.setData(data[combo_id])
+    }
+  }
+  /**
+  * Pour récupérer les données vidéos
+  * (options et position)
+  */
+  static getData(){
+    var data = {}
+    Combo.all.forEach(combo => {
+      Object.assign(data, {[combo.id]: combo.video.getData()})
+    })
+    return data
+  }
 
   constructor(combo){
     this.combo = combo
@@ -77,12 +103,36 @@ class Video {
   }
 
   /*
+  |  --- Data Methods ---
+  */
+  // Récupération (pour enregistrement) des données courantes
+  getData(){
+    return {
+        options: this.options.data
+      , time:    this.currentTime
+    }
+  }
+  // Application des données enregistrées
+  setData(data){
+    if (!data) return
+    this.currentTime = data.time || 0
+    this.options.set(data.options)
+  }
+
+  /*
   |  --- Volatile Data ---
   */
 
   get duration() { return this.obj.duration }
   get currentTime() { return this.obj.currentTime }
   set currentTime(v){ this.obj.currentTime = v }
+
+  /**
+  * Pour gérer les options de la vidéo (zéro, start_on_go, etc.)
+  */
+  get options(){
+    return this._options || (this._options = new VideoOptions(this).prepare() )
+  }
 
   /*
   |  --- Fixed Data and Dom Elements ---

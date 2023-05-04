@@ -19,6 +19,9 @@ class Controller {
   */
   goTo(secs){
     this.currentTime = secs
+    if ( this.ivideo.options.start_on_go && !this.isPlaying) {
+      this.togglePlay()
+    }
   }
 
   /**
@@ -69,13 +72,6 @@ class Controller {
     this.btnPlay.innerHTML = this.isPlaying ? '⏸️' : '▶️'
   }
 
-  /**
-  * Pour régler dans le menu d'option la valeur du zéro
-  */
-  showZeroAbsolu(secs){
-    DGet('option.zero', this.menuOptions).innerHTML = `zéro absolu : ${s2h(secs)}`
-  }
-
   get currentTime() { return this.video.currentTime }
   set currentTime(v){ this.video.currentTime = v }
 
@@ -122,31 +118,19 @@ class Controller {
     return stopEvent(ev)
   }
 
-  onChooseOption(ev){
-    switch(this.menuOptions.value){
-    case 'zero-absolu':
-      Analyse.current.setZeroAbsolu(this.currentTime)
-      break;
-    default:
-      console.warn("Option inconnue : ", this.menuOptions.value)
-    }
-    this.menuOptions.selectedIndex = 0
-  }
-
   observe(){
     listen(this.btnPlay,'click', this.onClickPlay.bind(this))
     listen(this.btnStop,'click', this.onClickStop.bind(this))
     listen(this.progress,'click', this.onClickProgress.bind(this))
-    listen(this.menuOptions,'change', this.onChooseOption.bind(this))
   }
 
   defineDomElements(){
     this.btnPlay      = DGet('.btn-play', this.combo.obj)
     this.btnStop      = DGet('.btn-stop', this.combo.obj)
-    this.menuOptions  = DGet('select.menu-options', this.combo.obj)
   }
 
   get progress(){return this._progress || (this._progress = DGet('progress',this.combo.obj))}
   get horloge(){return this._horloge || (this._horloge = DGet('.horloge',this.combo.obj))}
   get video(){return this._video || (this._video = this.combo.video.obj)}
+  get ivideo(){return this._ivideo || (this._ivideo = this.combo.video)}
 }
