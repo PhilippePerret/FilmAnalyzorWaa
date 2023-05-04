@@ -19,7 +19,7 @@ class KeyboardEventManager {
     if ( ev.metaKey ) {
       const combo = Video.current.combo
       const control = combo.controller
-      switch(ev.key){
+      switch ( ev.key ){
       case 'j':case 'J':
         control.moveBackward(ev.shiftKey, ev.ctrlKey);return stopEvent(ev)
       case 'k':
@@ -29,7 +29,9 @@ class KeyboardEventManager {
       case 'g': // se rendre au temps voulu (cf. manuel)
         control.goTo(Combo.current.textor.currentTime);return stopEvent(ev)
       case 's': // sauvegarde de l'analyse
-        Analyse.current.save(); return stopEvent(ev)
+        stopEvent(ev); Analyse.current.save(); return false
+      case 'S':
+        stopEvent(ev); Scene.display(); return false
       case 'p': // panneau des personnages
         Personnage.show(); return stopEvent(ev)
       case 'h': // Aide

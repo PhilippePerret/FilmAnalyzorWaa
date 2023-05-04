@@ -9,3 +9,6 @@ qu'il n'apparaisse pas sous la souris */
 const MGTIT = "        "
 
 const RET = "\r\n"
+
+
+const REG_TIME_MARK = new RegExp("^[0-9]:[0-9]{1,2}:[0-9]{1,2}(\.[0-9]{1,3})?$")

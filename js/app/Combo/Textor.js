@@ -29,9 +29,8 @@ class Textor {
   get currentTime(){
     const lines  = this.itextarea.textFromStartToCursor().split("\n")
     var line, i = lines.length - 1 ;
-    const regexp = new RegExp("^[0-9]:[0-9]{1,2}:[0-9]{1,2}(\.[0-9]{1,3})?$")
     for(; i > -1 ; --i ) {
-      if ( regexp.exec(lines[i]) ) return h2s(lines[i])
+      if ( REG_TIME_MARK.exec(lines[i]) ) return h2s(lines[i])
     }
     return 0
   }

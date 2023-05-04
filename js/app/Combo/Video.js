@@ -74,7 +74,7 @@ class Video {
   onLoaded(ev){
     if ( !this.isReady ) {    
       console.info("La vidéo #%s est prête.", this.combo.id)
-      this.combo.controller.onVideoLoaded()
+      this.controller.onVideoLoaded()
       this.combo.textor.onVideoLoaded()
       this.loadSpash.classList.add('hidden')
       this.isReady = true
@@ -96,10 +96,9 @@ class Video {
   }
 
   observe(){
-    console.log("-> Video#observer", this.combo.id)
     listen(this.obj,'canplaythrough',this.onLoaded.bind(this))
-    listen(this.obj,'timeupdate', this.combo.controller.onTimeUpdate.bind(this.combo.controller))
-    listen(this.obj,'click', this.combo.controller.togglePlay.bind(this.combo.controller))
+    listen(this.obj,'timeupdate', this.controller.onTimeUpdate.bind(this.controller))
+    listen(this.obj,'click', this.controller.togglePlay.bind(this.controller))
   }
 
   /*
@@ -125,7 +124,12 @@ class Video {
 
   get duration() { return this.obj.duration }
   get currentTime() { return this.obj.currentTime }
-  set currentTime(v){ this.obj.currentTime = v }
+  set currentTime(v){ 
+    this.obj.currentTime = v 
+    if ( this.options.start_on_go && !this.controller.isPlaying) {
+      this.controller.togglePlay()
+    }
+  }
 
   /**
   * Pour gérer les options de la vidéo (zéro, start_on_go, etc.)
@@ -134,6 +138,11 @@ class Video {
     return this._options || (this._options = new VideoOptions(this).prepare() )
   }
 
+  /*
+  |  --- Shortcuts ---
+  */
+  get controller(){return this.combo.controller}
+  
   /*
   |  --- Fixed Data and Dom Elements ---
   */

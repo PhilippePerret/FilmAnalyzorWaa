@@ -1,0 +1,32 @@
+div#listing-scenes {
+
+}
+
+div#listing-scenes div.scene {
+  border:1px solid #CCCCCC;
+  padding: 4px 12px;
+  margin-top:4px;
+}
+div#listing-scenes div.scene.selected {
+  background-color: #67B1FF;
+  color:white;
+}
+
+div#listing-scenes div.scene span.numero {
+  display: inline-block;
+  width: 40px;
+  font-family: Georgia;
+  font-size: 14pt;
+}
+div#listing-scenes div.scene span.resume {
+  display: inline-block;
+  width: 620px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+div#listing-scenes div.scene span.time {
+  font-family: Georgia;
+  font-size: 12pt;
+}

@@ -2,6 +2,7 @@
 /**
 * Class Panel
 * -----------
+* Version 2.0.0
 * Gestion des panneaux à l'écran
 * 
 * const panneau = new Panel({
@@ -12,6 +13,7 @@
 *         movable: true
 *         container:    Le contenant (le body, par défaut)
 *         position_x:   Position horizontale ('left','right','center' par défaut)
+*         onHide :      Méthode à appeler à la fermeture 
 *     }
 *   })
 */
@@ -99,6 +101,7 @@ class Panel {
   hide(){
     this.obj.classList.add('hidden')
     this.constructor.removeFromStack(this)
+    this.options.onHide && this.options.onHide.call()
     this.isVisible = false
   }
 

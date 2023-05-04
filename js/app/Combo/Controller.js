@@ -19,9 +19,6 @@ class Controller {
   */
   goTo(secs){
     this.currentTime = secs
-    if ( this.ivideo.options.start_on_go && !this.isPlaying) {
-      this.togglePlay()
-    }
   }
 
   /**
