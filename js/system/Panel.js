@@ -193,8 +193,8 @@ class Panel {
     default:
       leftMargin = `calc(50% - ${this.options.width / 2}px)`
     }
-    if ( rightMargin ) o.style.marginRight = rightMargin ;
-    if ( leftMargin ) o.style.marginLeft   = leftMargin ;
+    if ( rightMargin ) o.style.right = rightMargin ;
+    else if ( leftMargin ) o.style.left   = leftMargin ;
 
   }
 
