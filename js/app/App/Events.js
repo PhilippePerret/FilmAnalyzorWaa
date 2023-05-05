@@ -42,6 +42,9 @@ class KeyboardEventManager {
     return true
   }
   static onUpCommon(ev){
+    /*
+    |  Avec la touche CTRL
+    */
     if ( ev.ctrlKey ) {
       // console.warn("[UP] Je dois apprendre à jouer le raccourci control + ", ev.key)
       switch(ev.key){

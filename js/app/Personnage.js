@@ -110,9 +110,10 @@ class Personnage {
   |  Snippet Methods
   */
 
-  static traiteSnippet(textor, snippet){
+  static traiteSnippet(snippet){
     if ( !this.snippetTable ) return
-    this.snippetTable[snippet] && textor.remplaceSnippet(this.snippetTable[snippet] + ' ', snippet.length, false)
+    const nom = this.snippetTable[snippet.snip]
+    nom && snippet.remplaceSnippet('··' + nom + ' ', snippet.snip.length)
   }
 
   static defineSnippetsTable(personnages){

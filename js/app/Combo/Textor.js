@@ -56,43 +56,6 @@ class Textor {
     }
   }
 
-  /**
-    *****************************
-    ***     Les SNIPPETS      ***
-    *****************************
-  */
-  autocomplete(snip, ev){
-    // console.warn("-> autocomplete", text, ev)
-    switch(snip){
-    case 't': /* - Mettre le temps au curseur - */
-      this.remplaceSnippet(s2h(this.combo.controller.currentTime) + RET)
-      break
-    case 's': /* - Écrire SCENE au curseur - */
-      this.remplaceSnippet('SCENE',)
-      break
-    case 'sq': /* - Écrire SÉQUENCE au curseur - */
-      this.remplaceSnippet('SEQUENCE', 2)
-    case 'o': 
-      this.remplaceSnippet('OBJECTIF')
-    default:
-      Personnage.traiteSnippet(this, snip)
-    }
-  }
-
-  /**
-  * @param [String] str Le texte à placer
-  * @param [Integer] snippetLen La longueur du snippet à supprimer
-  * @param [Boolean] interact Si true, il faut ajouter " DESCRIPTION" après le texte à placer, et le sélectionner, pour définir une description
-  */
-  remplaceSnippet(str, snippetLen = 1, interact = true){
-    const it = this.itextarea;
-    if ( interact ) str += " DESCRIPTION"
-    it.select(it.selStart - snippetLen, it.selStart)
-    it.replaceSelection(str, 'end')
-    interact && it.select(it.selStart - 11, it.selStart)
-  }
-
-
   onFocus(ev){
     this.curOnkeyup   = window.onkeyup
     this.curOnkeydown = window.onkeydown
@@ -120,7 +83,7 @@ class Textor {
   */
 
   defineDomElements(){
-    this.itextarea = new Textarea(this.obj, {autocompleteMethod:this.autocomplete.bind(this)})
+    this.itextarea = new Textarea(this.obj, {autocompleteMethod:Snippet.exec.bind(Snippet, this)})
     this.field = this.obj
   }
 

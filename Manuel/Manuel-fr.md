@@ -183,9 +183,10 @@ Des snippets permettent de gérer facilement les éléments :
 
 | Description | Snippet |
 | --- | --- |
-| Insert le temps courant sur la ligne | t |
-| [Identifier une scène](#identify-scene) (Insert le mot-clé « SCENE » sur la ligne) | s |
-| Insert le mot-clé « SEQUENCE » sur la ligne (reconnaissance d’une séquence) | sq |
+| Insert le temps courant sur la ligne | `t` |
+| [Identifier une scène](#identify-scene) (Insert le mot-clé « SCENE » sur la ligne) | `s` |
+| Insert le mot-clé « SEQUENCE » sur la ligne (reconnaissance d’une séquence) | `sq` |
+| Insérer la marque « OBJECTIF » | `o` |
 
 ---
 
