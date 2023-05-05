@@ -25,9 +25,13 @@ class Personnage {
     listen(this.btnClose,'click',this.hide.bind(this))
   }
 
-  static onToggle(ev){
+  static toggle(){
     if ( this.isDisplayed ) { this.hide() }
     else { this.show() }
+  }
+
+  static onToggle(ev){
+    this.toggle()
     return stopEvent(ev)
   }
   static show(){ this.container.classList.remove('hidden'); this.isDisplayed = true }

@@ -33,7 +33,7 @@ class KeyboardEventManager {
       case 'S':
         stopEvent(ev); Scene.display(); return false
       case 'p': // panneau des personnages
-        Personnage.show(); return stopEvent(ev)
+        Personnage.toggle(); return stopEvent(ev)
       case 'h': // Aide
         stopEvent(ev); QuickHelp.toggle(); return false;
       }
