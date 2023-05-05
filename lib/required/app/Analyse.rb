@@ -114,8 +114,16 @@ class Analyse
     bkname   = Time.now.strftime('%Y-%m-%d')
     bkfolder = File.join(backup_folder, bkname)
     mkdir_p(bkfolder)
-    FileUtils.cp(texte_path, File.join(bkfolder,'texte.ana.txt'))
-    FileUtils.cp(data_path , File.join(bkfolder,'data.ana.yaml'))
+    if File.exist?(texte_path)
+      FileUtils.cp(texte_path, File.join(bkfolder,'texte.ana.txt'))
+    else
+      puts "Aucun fichier texte à sauvegarder…".rouge
+    end
+    if File.exist?(data_path)
+      FileUtils.cp(data_path , File.join(bkfolder,'data.ana.yaml'))
+    else
+      puts "Aucun fichier de données à sauvegarder…".rouge
+    end
     #
     # Enregistrement de la date de dernière backup
     # 
