@@ -17,11 +17,12 @@
 ### Préparation
 
 * la vidéo doit être au format `mp4` (avec les sous-titres si nécessaire),
-* elle doit être placée dans le dossier `me/Sites/FilmAnalyzor`
+* elle doit être placée dans le dossier `me/Sites/FilmAnalyzor` (mais si elle se trouve dans le dossier de l’application, une copie peut être faite)
 * créer un dossier pour l'analyse,
 * dans ce dossier, créer un fichier \`data.ana.yaml\` et y définir :
 
   ~~~yaml
+  # in data.ana.yaml
   titre: <titre du film
   zero: 0
   path: </path/absolute/to/folder/analyse>
@@ -29,8 +30,8 @@
   ~~~
 
 * dans ce dossier, créer également un fichier \`texte.ana.txt\` qui peut rester vide (il contiendra le texte de l'analyse)
-* on lance l’application à l’aide de la commande `analyse-film` (ou, si la commande n'est pas installée, en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
-* régler les paramètres du navigateur pour autoriser les commandes de lecture ([voir pour Firefox]( https://mzl.la/3pbxA8a)),
+* on lance l’application à l’aide de la commande générique `film` (ou, si la commande n'est pas installée, en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
+* si nécessaire, régler les paramètres du navigateur pour autoriser les commandes de lecture ([voir pour Firefox]( https://mzl.la/3pbxA8a)),
 * quand la vidéo est chargée, on peut commencer à [analyser le film](#analyser-film).
 
 <a name="personnages"></a>
@@ -71,11 +72,13 @@ Mais attention : chaque fois qu'un personnage est mentionné de cette manière d
 
     > Noter que cela ne change en rien les temps affichés ou imprimés dans le texte de l’analyse. Mais cela servira à produire le texte final ainsi qu’à calculer la structure.
 
-* Se placer dans le champ de texte pour commencer l’analyse,
-* On peut indiquer un premier temps en jouant le snippet `t[TAB]`. Cela écrit le temps courant sur la ligne du curseur. **Surtout, ne rien mettre d’autre que ce temps sur la ligne**.
-* Si c’est une scène, ajouter simplement « SCENE » sur la ligne (par exemple avec le snippet `s[TAG]`), 
+* se placer dans le champ de texte pour commencer à écrire l’analyse,
+* se souvenir de la [règle des doubles chariots](#regle-double-chariot),
+* on peut indiquer un premier temps en jouant le snippet `t[TAB]`. Cela écrit le temps courant sur la ligne du curseur. **Surtout, ne rien mettre d’autre que ce temps sur la ligne**.
+* si c’est une scène, ajouter simplement « `SCENE <Résumé>`» sur la ligne (par exemple avec le snippet `s[TAG]`), 
+* penser à passer une ligne après le résumé, selon la [règle des doubles chariots](#regle-double-chariot),
 * rédiger la description de la scène, si c’est une scène
-* partout où l'on veut retenir un temps, on inscrit le time code (`t[Tab]`) puis on écrit ce qu'on veut en dessous. S'il n'y a pas de ligne vide sous le time-code, on considère que ça fait partie de ce temps,
+* partout où l'on veut retenir un temps, on inscrit le time code (`t[Tab]`) puis on écrit ce qu'on veut en dessous. S'il n'y a pas de ligne vide sous le time-code, on considère que tout ce qui le suit fait partie de ce temps, selon la [règle des doubles chariots](#regle-double-chariot),
 * dans la description de la scène (attention : pas forcément le résumé), on peut [utiliser les marques de personnages](#use-marque-personnages) pour mieux les identifier,
 
 <a name="identify-scene"></a>
@@ -87,8 +90,9 @@ Mais attention : chaque fois qu'un personnage est mentionné de cette manière d
 Pour l'identifier, on procède ainsi :
 
 * placer un time code au moment de la scène (`t[Tab]`),
-* SOUS ce time code, placer une marque de scène (`s[Tab]`)
-* définir le résumé de la scène après la marque `SCENE`. 
+* SOUS ce time code, placer une marque de scène (`s[Tab]`),
+* définir le résumé de la scène après la marque `SCENE`,
+* passer une ligne pour commencer la description de la scène.
 
 ---
 
@@ -182,3 +186,48 @@ Des snippets permettent de gérer facilement les éléments :
 | Insert le temps courant sur la ligne | t |
 | [Identifier une scène](#identify-scene) (Insert le mot-clé « SCENE » sur la ligne) | s |
 | Insert le mot-clé « SEQUENCE » sur la ligne (reconnaissance d’une séquence) | sq |
+
+---
+
+<a name="principes"></a>
+
+## Principes
+
+<a name="regle-double-chariot"></a>
+
+### Règle des doubles chariots
+
+Ce principe veut que tout élément de l’analyse doit être séparé par des doubles chariot. C’est pour cette raison que lorsqu’on tape un retour chariot dans le champ de texte, une ligne est passée.
+
+Cela commence avec le temps d’une scène :
+
+~~~
+0:00:12:25
+SCENE La deuxième scène
+~~~
+
+Le fait que `SCENE` soit « collé » au timecode ci-dessus indique que ce temps contient cette scène.
+
+Dans :
+
+~~~
+SCENE Le début du résumé
+Une deuxième ligne du résumé
+Une troisième ligne de résumé
+
+Cette ligne marque le début de la description de la scène.
+~~~
+
+… le résumé est composé de trois lignes. La première ligne sert toujours de résumé court.
+
+Il en va de même pour tout élément, par exemple pour la définition d’un objectif : 
+
+~~~
+Description de la scène.
+
+OBJECTIF John doit retourver son fils
+L'objectif un peu plus détaillé.
+
+La suite de la description de la scène, après une ligne vide.
+~~~
+
