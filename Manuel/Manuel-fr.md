@@ -158,6 +158,7 @@ L’application comporte de nombreux raccourcis clavier qui permettent de contr�
 | Une seconde en avant                                         | ⌘ ⇧ L     |
 | Mettre la vidéo courante au premier time-code avant le curseur ([?](#goto-time-avant-cursor)) | ⌘ G       |
 | Basculer vers l’autre vidéo                                  | ⌃ v       |
+| Passer seulement à la ligne (sinon [une ligne est naturellement sautée](#regle-double-chariot)) | ⌘⇧↩︎       |
 
 
 
@@ -232,3 +233,6 @@ L'objectif un peu plus détaillé.
 La suite de la description de la scène, après une ligne vide.
 ~~~
 
+#### Pour ne mettre qu’un retour chariot
+
+Jouer la touche Entrée avec la touche majuscule tenue.
