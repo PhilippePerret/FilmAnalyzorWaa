@@ -24,11 +24,10 @@
   ~~~yaml
   # in data.ana.yaml
   titre: <titre du film
-  zero: 0
   path: </path/absolute/to/folder/analyse>
   video: <nom du fichier de la vidéo>
   ~~~
-
+  
 * dans ce dossier, créer également un fichier \`texte.ana.txt\` qui peut rester vide (il contiendra le texte de l'analyse)
 * on lance l’application à l’aide de la commande générique `film` (ou, si la commande n'est pas installée, en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
 * si nécessaire, régler les paramètres du navigateur pour autoriser les commandes de lecture ([voir pour Firefox]( https://mzl.la/3pbxA8a)),
@@ -236,3 +235,14 @@ La suite de la description de la scène, après une ligne vide.
 #### Pour ne mettre qu’un retour chariot
 
 Jouer la touche Entrée avec la touche majuscule tenue.
+
+
+
+## Annexe
+
+### Création de la commande `film`
+
+~~~
+ln -s /Users/me/Programmes/FilmAnalyzor/analyzor.rb /usr/local/bin/film
+~~~
+

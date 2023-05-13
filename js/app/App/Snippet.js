@@ -49,7 +49,7 @@ class Snippet {
 
   writeTimeAtCursor(){
     const horloge = s2h(this.textor.combo.controller.currentTime)
-    this.remplaceSnippet(horloge, 1, {description:true})
+    this.remplaceSnippet(horloge, 1, {description:false})
   }
 
   writeSceneAtCursor(){

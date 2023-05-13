@@ -25,12 +25,12 @@ class Analyse {
     Personnage.prepare()
     this.observe()
     /*
-    |  Ouverture
-    |  Pour la forcer, on renseigne les données
+    |  Ouverture de l'analyse
+    |  ----------------------
+    |  Soit la dernière, soit celle dans laquelle on a lancé
+    |  l'application
     */
-    // const data = undefined
-    const data = {type:'folder', path:'/Users/philippeperret/Library/Mobile Documents/com~apple~CloudDocs/ECRITURE/Analyses/TheStraightStory'}
-    this.open(data)
+    this.openCurrent()
   }
 
   static observe(){
@@ -42,6 +42,12 @@ class Analyse {
     listen(this.manuelBtn, 'click', QuickHelp.toggle.bind(QuickHelp))
   }
 
+  /**
+  * Pour ouvrir l'analyse courante
+  */
+  static openCurrent(){
+    WAA.send({class:'FilmAnalyzor::Analyse',method:'load_current'})
+  }
   /**
   * Pour ouvrir une analyse
   */

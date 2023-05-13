@@ -68,6 +68,32 @@ class Analyse
     WAA.send({class:'Analyse.current',method:'saveTexte', data:retour})
   end
 
+  ##
+  # Chargement de l'analyse courante (if any)
+  # 
+  # Cette méthode est appelée au chargement de l'application (après
+  # que tout a été installé et préparé) pour voir s'il y a une analyse
+  # courante. Une analyse courante existe :
+  #   - si on a lancé l'application depuis un dossier contenant une
+  #     analyse (donc le fichier 'data.ana.yaml')
+  #   - si une analyse est enregistrée comme dernière analyse effec-
+  #     tuée
+  # 
+  def load_current(data)
+    # 
+    # Se trouve-t-on dans le dossier d'une analyse ?
+    # 
+    if File.exist?(File.join('.','data.ana.yaml')
+      load('path' => File.expand_path('.'))
+    elsif last_analyse
+      #
+      # Chargement de la dernière analyse travaillée
+      #
+    end
+  end
+  def last_analyse
+    nil
+  end
   #
   # Chargement de l'analyse vers le client
   # 
