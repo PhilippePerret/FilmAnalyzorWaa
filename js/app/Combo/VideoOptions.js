@@ -32,6 +32,10 @@ class VideoOptions {
       /* - On doit prendre le temps courant - */
       this.data.zero = this.video.currentTime
       break
+    case 'adapt_to_window':
+      /* - On doit adapter la vidéo à la fenêtre courante - */
+      this.video.adaptToWindow()
+      break
     default:
       /* - Option dont on doit inverser la valeur - */
       this.data[optid] = !this.data[optid]
@@ -47,7 +51,6 @@ class VideoOptions {
   prepare(){
     this.menu.selectedIndex = 0
     listen(this.menu,'change', this.onChangeOption.bind(this))
-    return this // chainage
   }
 
   /**

@@ -62,6 +62,16 @@ class Video {
     this.obj.load()
   }
 
+  /**
+  * Appelée par le menu option "Adapter à la fenêtre" pour adapter
+  * la taille de la vidéo à la taille de la fenêtre
+  */
+  adaptToWindow(){
+    const wWindow = window.innerWidth
+    const wText   = this.combo.textor.obj.offsetWidth
+    this.width = wWindow - wText - 60
+  }
+
   /*
   |  --- Observer Methods ---
   */
@@ -91,8 +101,9 @@ class Video {
   * Préparation de la vidéo
   */
   prepare(){
-    this.obj.setAttribute('width', this.combo.id == 1 ? VIDEO_WIDTH : VIDEO_WIDTH / 2)
+    this.width = this.combo.id == 1 ? VIDEO_WIDTH : VIDEO_WIDTH / 2
     this.load('empty.mp4')
+    this.options.prepare()
   }
 
   observe(){
@@ -122,6 +133,10 @@ class Video {
   |  --- Volatile Data ---
   */
 
+  set width(value){
+    this.obj.setAttribute('width', value)
+  }
+
   get duration() { return this.obj.duration }
   get currentTime() { return this.obj.currentTime }
   set currentTime(v){ 
@@ -135,7 +150,7 @@ class Video {
   * Pour gérer les options de la vidéo (zéro, start_on_go, etc.)
   */
   get options(){
-    return this._options || (this._options = new VideoOptions(this).prepare() )
+    return this._options || (this._options = new VideoOptions(this) )
   }
 
   /*

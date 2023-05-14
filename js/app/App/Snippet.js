@@ -53,15 +53,15 @@ class Snippet {
   }
 
   writeSceneAtCursor(){
-    this.remplaceSnippet('SCENE', 1, {description:true})
+    this.remplaceSnippet('SCENE', 1, {description:"PITCH\nRÉSUMÉ"})
   }
 
   writeSequenceAtCursor(){
-    this.remplaceSnippet('SEQUENCE', 2, {description:true})
+    this.remplaceSnippet('SEQUENCE', 2, {description:"TITRE\nDESCRIPTION"})
   }
 
   writeObjectAtCursor(){
-    this.remplaceSnippet('OBJECTIF', 1, {description:true})
+    this.remplaceSnippet('OBJECTIF', 1, {description:"TITRE\nDESCRIPTION"})
   }
 
   /**
@@ -75,8 +75,8 @@ class Snippet {
     options = options || {description: false}
     var offstart = 0, offend = 0 ;
     if ( options.description ){ 
-      str += " DESCRIPTION"
-      str += "\n\n(_SUITE_)"
+      str += ('string' == typeof options.description) ? options.description : " DESCRIPTION"
+      str += "\n\n__"
       offstart  = 13 + 9
       offend    =  2 + 9
     }

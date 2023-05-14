@@ -16,21 +16,28 @@
 
 ### Préparation
 
-* la vidéo doit être au format `mp4` (avec les sous-titres si nécessaire),
-* elle doit être placée dans le dossier `me/Sites/FilmAnalyzor` (mais si elle se trouve dans le dossier de l’application, une copie peut être faite)
 * créer un dossier pour l'analyse,
-* dans ce dossier, créer un fichier \`data.ana.yaml\` et y définir :
+
+* y placer la vidéo du film (elle doit être au format `mp4` — avec les sous-titres si nécessaire),
+
+* elle peut être dupliquée dans le dossier `me/Sites/FilmAnalyzor` (mais si elle se trouve dans le dossier de l’application, une copie peut être faite)
+
+* dans le dossier de l’analyse, créer un fichier **\`data.ana.yaml\`** et y définir :
 
   ~~~yaml
   # in data.ana.yaml
   titre: <titre du film
   path: </path/absolute/to/folder/analyse>
+  # Si la vidéo porte un autre nom que le dossier :
   video: <nom du fichier de la vidéo>
   ~~~
   
-* dans ce dossier, créer également un fichier \`texte.ana.txt\` qui peut rester vide (il contiendra le texte de l'analyse)
+* dans ce dossier, créer également un fichier **`analyse.ana.txt`** qui peut rester vide (il contiendra le texte de l'analyse)
+
 * on lance l’application à l’aide de la commande générique `film` (ou, si la commande n'est pas installée, en ouvrant une fenêtre de Terminal dans le dossier de l’application et en jouant `ruby analyzor.rb`),
+
 * si nécessaire, régler les paramètres du navigateur pour autoriser les commandes de lecture ([voir pour Firefox]( https://mzl.la/3pbxA8a)),
+
 * quand la vidéo est chargée, on peut commencer à [analyser le film](#analyser-film).
 
 <a name="personnages"></a>
@@ -123,8 +130,16 @@ C’est le menu qui se trouve tout à gauche sous la fenêtre de la vidéo. Il p
 ## La vidéo du film
 
 * La vidéo de référence doit être au format `mp4`.
-* elle doit se trouver dans le dossier `/me/Sites/FilmAnalyzor` (donc dans mon dossier site)
-* en fait, la déplacer simplement là quand on analyse le film ({TODO: À l’avenir, on pourra prévoir une procédure qui mette le film là, mais la copie risque d’être un peu longue…}
+* elle doit se trouver dans le dossier de l’analyse (elle est mise dans `/me/Sites/FilmAnalyzor` au moment de son analyse, penser à la retirer lorsque l’analyse est terminée)
+* en fait, la déplacer simplement là quand on analyse le film.
+
+Si la vidéo porte un des noms suivants, ce nom n’a pas besoin d’être défini dans le fichier `data.ana.yaml` :
+
+* **`<nom dossier>.mp4`** (par exemple `Drive/Drive.mp4`)
+* **`<nom dossier>-us.mp4`** (par exemple `Drive/Drive-us.mp4`)
+* **`<nom dossier>-fr.mp4`** (par exemple `Drive/Drive-fr.mp4`)
+
+> `-us` et `-fr` ne doivent pas déterminer la langue du film (il doit être toujours dans sa langue originale) mais la langue du sous-titre.
 
 ---
 
