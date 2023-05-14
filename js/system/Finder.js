@@ -445,9 +445,17 @@ class FinderElement {
     return stopEvent(ev)
   }
 
+  /**
+  * Action du double-clic sur l'élément
+  * Si c'est un fichier, on le prend, si c'est un dossier, on l'ouvre
+  */
   onDoubleClick(ev){
     this.finder.select(this)
-    this.finder.onClickBoutonAction(ev)
+    if ( this.type == 'folder') {
+      this.finder.onClickBoutonOuvrir(ev)
+    } else {
+      this.finder.onClickBoutonAction(ev)
+    }
     return stopEvent(ev) 
   }
 
