@@ -167,7 +167,7 @@ class Textarea {
       while ( this.content[--cursor] != "\n" && cursor > -1)
       data.start = cursor
       // console.log("Ligne = '%s'", this.content.substring(data.start, data.end))
-    } else if ( this.content[cursor - 1] == "\n") {
+    } else if ( cursor == 0 || this.content[cursor - 1] == "\n") {
       /*
       |  Quand on est au début de la ligne
       */

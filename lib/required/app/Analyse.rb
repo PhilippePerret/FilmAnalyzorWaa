@@ -79,21 +79,44 @@ class Analyse
   #   - si une analyse est enregistrée comme dernière analyse effec-
   #     tuée
   # 
-  def load_current(data)
-    # 
-    # Se trouve-t-on dans le dossier d'une analyse ?
-    # 
-    if File.exist?(File.join('.','data.ana.yaml')
+  def self.load_current
+    if File.exist?(File.join('.','data.ana.yaml'))
+      # 
+      # On se trouve dans le dossier d'une analyse
+      # 
       load('path' => File.expand_path('.'))
     elsif last_analyse
       #
       # Chargement de la dernière analyse travaillée
       #
+      load('path' => hotdata[:last_analyse_path])
     end
   end
-  def last_analyse
-    nil
+  def self.last_analyse
+    hotdata[:last_analyse_path]
   end
+  def self.last_analyse=(path)
+    hotdata.merge!(last_analyse_path: path)
+    save_hotdata
+  end
+
+  # 
+  # --- Hot Data Methods ---
+  # 
+  def self.hotdata
+    if File.exist?(hotdata_file)
+      YAML.load_file(hotdata_file, **YAML_OPTIONS)
+    else
+      {}
+    end
+  end
+  def self.save_hotdata
+    File.write(hotdata_file, hotdata.to_yaml)
+  end
+  def self.hotdata_file
+    @@hotdata_file ||= File.join(TMP_FOLDER,'hotdata.yaml')
+  end
+
   #
   # Chargement de l'analyse vers le client
   # 
@@ -106,9 +129,13 @@ class Analyse
   #     (mais je ne pense pas, vu ce que supportent les pages HTML)
   # 
   def self.load(data)
+    # débug
+    puts "Object-Id de la class Analyse : #{self.object_id}"
+    # /débug
     analyse = new(data['path'])
     analyse.make_backup if analyse.backup_required?
     analyse.check_video
+    last_analyse = data['path'] # pour s'en souvenir
     WAA.send(class:'Analyse',method:'onLoad',data:analyse.client_data)
   end
 
@@ -116,6 +143,7 @@ class Analyse
 
 ###################       INSTANCE      ###################
   
+
   attr_reader :path
 
   # @param [String] path Chemin d'accès au DOSSIER de l'analyse
@@ -138,7 +166,7 @@ class Analyse
   end
 
   def check_video
-    video_name = data['video']
+    video_name || raise("Il faut absolument définir le nom du fichier vidéo dans data.ana.yaml s'il ne possède pas le nom par défaut (:video).")
     video_path = File.join(path, video_name)
     video_path_in_sites = File.join(Dir.home,'Sites','FilmAnalyzor',video_name)
     return true if File.exist?(video_path_in_sites)
@@ -151,7 +179,28 @@ class Analyse
       FileUtils.cp(video_path, video_path_in_sites)
       puts "Vidéo copiée. Merci de votre patience.".vert
     else
-      raise "La vidéo est malheureusement introuvable. Je ne peux pas ouvrir cette analyse."
+      raise "La vidéo '#{video_path}' est malheureusement introuvable. Je ne peux pas ouvrir cette analyse."
+    end
+  end
+
+  ##
+  # Nom du fichier vidéo
+  #   Soit il est défini dans le fichier data.ana.yaml
+  #   Soit il porte le nom par défaut qui peut être :
+  #     - <nom dossier>.mp4
+  #     - <nom dossier>-us.mp4
+  #     - <nom dossier>-fr.mp4
+  def video_name
+    @video_name ||= begin
+      data['video'] ||= begin
+        dname = File.basename(path)
+        vname = nil
+        ["#{dname}", "#{dname}-us", "#{dname}-fr"].each do |affixe|
+          vname = "#{affixe}.mp4"
+          break if File.exist?(File.join(path,vname))
+        end
+        vname
+      end
     end
   end
 
@@ -164,7 +213,7 @@ class Analyse
     bkfolder = File.join(backup_folder, bkname)
     mkdir_p(bkfolder)
     if File.exist?(texte_path)
-      FileUtils.cp(texte_path, File.join(bkfolder,'texte.ana.txt'))
+      FileUtils.cp(texte_path, File.join(bkfolder,'analyse.ana.txt'))
     else
       puts "Aucun fichier texte à sauvegarder…".rouge
     end
@@ -198,7 +247,12 @@ class Analyse
     @data_path ||= File.join(path,'data.ana.yaml')
   end
   def texte_path
-    @texte_path ||= File.join(path,'texte.ana.txt')
+    @texte_path ||= begin
+      oldpath = File.join(path,'texte.ana.txt')
+      newpath = File.join(path,'analyse.ana.txt')
+      FileUtils.cp(oldpath, newpath) if File.exist?(oldpath) && not(File.exist?(newpath))
+      newpath
+    end
   end
 end #/class Analyse
 end #/module FilmAnalyzor
