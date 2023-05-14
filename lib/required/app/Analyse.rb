@@ -86,7 +86,7 @@ class Analyse
       # 
       # On se trouve dans le dossier d'une analyse
       # 
-      load('path' => anapath)
+      load('path' => File.dirname(anapath))
 
     elsif last_analyse
       #
@@ -105,11 +105,16 @@ class Analyse
   def self.check_current_folder
     anapath = File.join('.','data.ana.yaml')
     return if File.exist?(anapath) # C'est déjà une analyse
-    return nil if Dir["./*.mp4"].count == 0
+    return if Dir["./*.mp4"].count == 0
+    video_name = File.basename(Dir["./*.mp4"].first)
     # - Ça peut être une analyse -
     return nil unless Q.yes?("Dois-je transformer ce dossier en dossier d'analyse ?".jaune)
     titre = Q.ask("Titre du film : ".jaune)
-    data = {titre: titre, path: File.expand_path('.')}
+    data = {
+      'titre' => titre, 
+      'path'  => File.expand_path('.'), 
+      'video' => video_name
+    }
     File.write(anapath, data.to_yaml)
     txtpath = File.join('.','analyse.ana.txt')
     File.write(txtpath, "# Analyse de #{titre}\n\n")
@@ -178,7 +183,7 @@ class Analyse
   #     - data.ana.yaml       Données de l'analyse
   #     - <nom film>.mp4      Fichiers du film
   def initialize(path)
-    @path = path
+    @path = File.expand_path(path)
     @message = nil
   end
 

@@ -5,6 +5,11 @@ class Server
   # Méthode appelée au démarrage (avant le chargement de la page)
   # 
   def self.on_start_up
+    #
+    # On regarde si le dossier courant est une analyse ou s'il 
+    # pourrait être transformé en analyse
+    # 
+    FilmAnalyzor::Analyse.check_current_folder
 
   end
 
