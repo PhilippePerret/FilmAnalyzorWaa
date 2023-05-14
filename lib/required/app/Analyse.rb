@@ -80,18 +80,42 @@ class Analyse
   #     tuée
   # 
   def self.load_current
-    if File.exist?(File.join('.','data.ana.yaml'))
+    anapath = File.join('.','data.ana.yaml')
+    if File.exist?(anapath)
       # 
       # On se trouve dans le dossier d'une analyse
       # 
-      load('path' => File.expand_path('.'))
+      load('path' => anapath)
+
     elsif last_analyse
       #
       # Chargement de la dernière analyse travaillée
       #
       load('path' => hotdata[:last_analyse_path])
+
     end
   end
+
+  ##
+  # Méthode appelée avant le chargement de la page, qui vérifie le
+  # dossier courant, pour savoir si ça peut ou pourrait être une
+  # analyse.
+  # 
+  def self.check_current_folder
+    anapath = File.join('.','data.ana.yaml')
+    return if File.exist?(anapath) # C'est déjà une analyse
+    return nil if Dir["./*.mp4"].count == 0
+    # - Ça peut être une analyse -
+    return nil unless Q.yes?("Dois-je transformer ce dossier en dossier d'analyse ?".jaune)
+    titre = Q.ask("Titre du film : ".jaune)
+    data = {titre: titre, path: File.expand_path('.')}
+    File.write(anapath, data.to_yaml)
+    txtpath = File.join('.','analyse.ana.txt')
+    File.write(txtpath, "# Analyse de #{titre}\n\n")
+    puts "Analyse initiée avec succès.".vert
+  end
+
+
   def self.last_analyse
     hotdata[:last_analyse_path]
   end

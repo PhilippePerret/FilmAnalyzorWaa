@@ -19,12 +19,17 @@ class << self
     # On consigne toujours le dernier appel
     # 
     consigne_last_call
+    #
+    # On regarde si le dossier courant est une analyse ou s'il 
+    # pourrait être transformé en analyse
+    # 
+    Analyse.check_current_folder
 
   end
 
   ##
   # Pour obtenir un chemin d'accès dans le dossier des données per-
-  # nelles de l'user
+  # sonnelles de l'user
   # 
   # @note
   #   Le chemin d'accès tient compte du mode test.
