@@ -5,6 +5,7 @@
 */
 const DATA_SNIPPETS = {
   't':  'writeTimeAtCursor',
+  'a':  'writeBaliseAnalyse',
   's':  'writeSceneAtCursor',
   'sq': 'writeSequenceAtCursor',
   'o':  'writeObjectifAtCursor',
@@ -49,7 +50,7 @@ class Snippet {
 
   writeTimeAtCursor(){
     const horloge = s2h(this.textor.combo.controller.currentTime)
-    this.remplaceSnippet(horloge, 1, {description:false})
+    this.remplaceSnippet(horloge + "\n", 1, {description:false})
   }
 
   writeSceneAtCursor(){
@@ -62,6 +63,10 @@ class Snippet {
 
   writeObjectAtCursor(){
     this.remplaceSnippet('OBJECTIF', 1, {description:"TITRE\nDESCRIPTION"})
+  }
+
+  writeBaliseAnalyse(){
+    this.remplaceSnippet(){"ANALYSE\n",1, {description:false}}
   }
 
   /**
@@ -78,7 +83,7 @@ class Snippet {
       var ajout = ('string' == typeof options.description) ? ` ${options.description}` : " DESCRIPTION"
       ajout += "\n\n__"
       offstart  = ajout.length - 1
-      offend    =  offstart - 6
+      offend    =  offstart - 5
       str = str + ajout
     }
     it.select(it.selStart - snippetLen, it.selStart)

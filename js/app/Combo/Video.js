@@ -71,6 +71,15 @@ class Video {
     const wText   = this.combo.textor.obj.offsetWidth
     this.width = wWindow - wText - 60
   }
+  /**
+  * Appelée pour le menu option "Adapter à la vidéo" pour adapter
+  * la taille de la fenêtre à la taille de la vidéo
+  */
+  adaptWindowToVideo(){
+    const wText   = this.combo.textor.obj.offsetWidth
+    const wVideo  = this.obj.offsetWidth
+    window.resizeTo(wText + wVideo + 60, window.outerHeight)
+  }
 
   /*
   |  --- Observer Methods ---

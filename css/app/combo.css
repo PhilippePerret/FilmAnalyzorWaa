@@ -48,6 +48,7 @@ div.combo textarea.textor {
   resize: horizontal;
   padding: 0 16px;
   border: 8px solid transparent;
+  font-family: Arial Narrow;
 }
 
 div.combo input.console {

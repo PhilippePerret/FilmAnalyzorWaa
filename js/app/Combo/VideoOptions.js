@@ -36,6 +36,9 @@ class VideoOptions {
       /* - On doit adapter la vidéo à la fenêtre courante - */
       this.video.adaptToWindow()
       break
+    case 'adapt_to_video':
+      this.video.adaptWindowToVideo()
+      break
     default:
       /* - Option dont on doit inverser la valeur - */
       this.data[optid] = !this.data[optid]
