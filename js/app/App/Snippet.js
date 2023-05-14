@@ -75,10 +75,11 @@ class Snippet {
     options = options || {description: false}
     var offstart = 0, offend = 0 ;
     if ( options.description ){ 
-      str += ('string' == typeof options.description) ? options.description : " DESCRIPTION"
-      str += "\n\n__"
-      offstart  = 13 + 9
-      offend    =  2 + 9
+      var ajout = ('string' == typeof options.description) ? ` ${options.description}` : " DESCRIPTION"
+      ajout += "\n\n__"
+      offstart  = ajout.length - 1
+      offend    =  offstart - 6
+      str = str + ajout
     }
     it.select(it.selStart - snippetLen, it.selStart)
     it.replaceSelection(str, 'end')

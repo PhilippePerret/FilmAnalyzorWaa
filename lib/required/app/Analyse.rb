@@ -36,7 +36,8 @@ class Analyse
   def self.save_texte(waadata)
     retour = {ok:true}
     path = waadata['path']
-    texte_path = File.join(path,'texte.ana.txt')
+    ana  = new(path)
+    texte_path = ana.texte_path
     if waadata.key?('first_portion')
       #
       # Début de l'enregistrement
