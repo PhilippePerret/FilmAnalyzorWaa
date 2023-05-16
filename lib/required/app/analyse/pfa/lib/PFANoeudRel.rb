@@ -1,8 +1,7 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-require_relative 'PFANoeudAbs'
-
+class PFA
 class PFANoeudRel
 
   TOPS = {part: 9*PFA::LINE_HEIGHT, seq:12*PFA::LINE_HEIGHT, noeud:12*PFA::LINE_HEIGHT}
@@ -147,4 +146,5 @@ def part?
   @is_part ||= type == :part
 end
 
-end #/PFANoeudRel
+end #/class PFANoeudRel
+end #/class PFA

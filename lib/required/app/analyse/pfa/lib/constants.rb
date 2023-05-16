@@ -1,9 +1,42 @@
-# encoding: UTF-8
-# frozen_string_literal: true
+class PFA
+
+  #
+  # Liste des nœuds minimum qu'il faut pour (commencer à) construire 
+  # le PFA du film.
+  # 
+  REQUIRE_NODES_FOR_BUILDING = [:ex, :id, :p1, :dv, :d2, :p2, :dn, :cx, :pf]
+
+  # 
+  # - Dimensions -
+  # 
+
+  PFA_WIDTH   = 4000 # 4000px (en 300dpi)
+  PFA_HEIGHT  = PFA_WIDTH / 4
+  # PFA_HEIGHT  = (PFA_WIDTH.to_f / 1.6).to_i
+  PFA_LEFT_MARGIN   = 150
+  PFA_RIGHT_MARGIN  = 150
+  LINE_HEIGHT = (PFA_HEIGHT.to_f / 15).to_i
+
+  # ImageMagick
+  CONVERT_CMD = 'convert' # avant : /usr/local/bin/convert
+
 
 # Données pour le dessins du PFA
 # Les points sont pensés sur une distance totale de 120
-class PFA
+
+class PFANoeudAbs
+
+  TOPS        = { part: PFA::LINE_HEIGHT,      seq:3*PFA::LINE_HEIGHT,       noeud:3*PFA::LINE_HEIGHT  }
+  HEIGHTS     = { part: PFA_HEIGHT/1.4,       seq: 50,        noeud: 50   }
+  # HEIGHTS[:part] définit la hauteur des marques de partie "EXPOSITION", etc.
+  FONTSIZES   = { part: 10,       seq: 8,         noeud: 7  }
+  FONTWEIGHTS = { part:3,         seq:2,          noeud:1     }
+  COLORS      = { part:'gray75',  seq:'gray55',   noeud:'gray55' }
+  DARKERS     = { part:'gray50',  seq:'gray45',   noeud:'gray45' }
+  GRAVITIES   = { part:'Center',  seq:'Center',   noeud:'Center'}
+  BORDERS     = { part:3,         seq:2,          noeud:1}
+
+end #/class PFANoeudAbs
 
 DATA_NOEUDS = {
   zr:  {id:'zr', long_name: 'Point Zéro (pour les temps exacts)', hname: 'Point Zéro', type: :system},
@@ -29,10 +62,5 @@ DATA_NOEUDS = {
   pf:  {id:'pf',  long_name: 'Point Final (début noir-générique)', hname:'Point Final', type: :system}
 }
 
-# Pour passer tout en secondes :
-# DATA_NOEUDS.each do |kn, dn|
-#   next if dn[:start].nil?
-#   dn.merge!(start: dn[:start] * 60, end: dn[:end] * 60)
-# end
 
 end #/class PFA

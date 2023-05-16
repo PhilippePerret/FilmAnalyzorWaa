@@ -5,6 +5,16 @@
 	----------
 	Pour la gestion des paradigmes de Field
 =end
+require_relative 'lib/Film'
+require_relative 'lib/constants'
+require_relative 'lib/utils'
+require_relative 'lib/extensions/Number'
+require_relative 'lib/PFANoeudAbs'
+require_relative 'lib/PFANoeudRel'
+require_relative 'lib/Horloge'
+require_relative 'lib/builder'
+require_relative 'lib/PFA_helpers'
+
 class PFA
 
 # -------------------------------------------------------------------
@@ -58,4 +68,5 @@ def noeuds			;@noeuds||=data[:noeuds]||{}end
 def path
 	@path ||= File.join(film.pfa_folder,"pfa#{index}.yaml")
 end
+
 end #/class PFA

@@ -4,18 +4,8 @@
   Pour les couleurs voir : https://legacy.imagemagick.org/script/color.php
 =end
 
-require_relative 'constants'
-
+class PFA
 class PFANoeudAbs
-  TOPS        = { part: PFA::LINE_HEIGHT,      seq:3*PFA::LINE_HEIGHT,       noeud:3*PFA::LINE_HEIGHT  }
-  HEIGHTS     = { part: 80,       seq: 50,        noeud: 50   }
-  FONTSIZES   = { part: 10,       seq: 8,         noeud: 7  }
-  FONTWEIGHTS = { part:3,         seq:2,          noeud:1     }
-  COLORS      = { part:'gray75',  seq:'gray55',   noeud:'gray55' }
-  DARKERS     = { part:'gray50',  seq:'gray45',   noeud:'gray45' }
-  GRAVITIES   = { part:'Center',  seq:'Center',   noeud:'Center'}
-  BORDERS     = { part:3,         seq:2,          noeud:1}
-
 class << self
 
   def realpos(val)
@@ -44,6 +34,9 @@ def initialize(data)
   @data = data
 end
 
+#
+# Écriture de tous les labels ("EXPOSITION", "I.D", etc.)
+# 
 def draw_command
   <<-TXT.gsub(/\n/,' ').strip
 #{send("lines_for_#{type}".to_sym)}
@@ -153,4 +146,5 @@ def system?   ; @is_system  || type == :system  end
 
 def pfa ; @pfa ||= data[:pfa] end
 
-end #/PFANoeudAbs
+end #/class PFANoeudAbs
+end #/class PFA

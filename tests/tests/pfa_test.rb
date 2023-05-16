@@ -11,7 +11,7 @@ class PFATest < Minitest::Test
 
   def setup
     super
-    Dir["./lib/required/app/analyse/**/*.rb"].each{|m|require(m)}
+    require './lib/required/app/analyse/pfa/PFA'
   end
 
   def test_production_image

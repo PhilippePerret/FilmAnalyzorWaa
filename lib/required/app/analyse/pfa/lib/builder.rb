@@ -5,12 +5,6 @@
   Module de construction du PFA sous forme d'une image SVG.
 
 =end
-require_relative 'constants'
-require_relative 'Horloge'
-require_relative 'PFANoeudAbs'
-require_relative 'PFANoeudRel'
-require_relative 'PFA_helpers'
-
 
 
 class PFA
@@ -56,12 +50,13 @@ attr_accessor :noeudsRel
 attr_reader :errors, :lakes
 
 
-def duration
-  @duration ||= noeud(:pf)[:start_time] - noeud(:zr)[:start_time]
-end
-
-# Construction du PFA
-# -------------------
+###########################
+### Construction du PFA ###
+###########################
+# 
+# @public
+# @main
+# 
 # Cette construction doit produire une image de 4000 pixels de large
 # sur ? de haut
 def build
@@ -164,6 +159,11 @@ def build
 
 
 end #/build
+
+# @prop Durée en minutes du film
+def duration
+  @duration ||= noeud(:pf)[:start_time] - noeud(:zr)[:start_time]
+end
 
 def realpos(val)
   (PFA_LEFT_MARGIN + realpx(val)).to_i
@@ -305,6 +305,31 @@ private
 def bon_ordre?(kav, kap)
   noeudRel(kav).time < noeudRel(kap).time
 end #/ bon_ordre?
+
+
+private
+
+  # 
+  # @return true si la construction du PFA est possible, c'est-à-dire
+  # s'il possède les nœuds minimum requis.
+  # 
+  def construction_possible?
+    missing_elements_for_build.empty?
+  end
+
+  # 
+  # @return [Array] la liste des noeuds requis pour la construction qui sont
+  # manquants.
+  # 
+  # +as_human+  Si TRUE, on renvoie la liste sous forme humaine (pou
+  #             un message par exemple)
+  # 
+  def missing_elements_for_build(as_human = false)
+    REQUIRE_NODES_FOR_BUILDING.collect do |etype|
+      next if not noeud(etype).nil?
+      as_human ? DATA_NOEUDS[etype][:long_name] : etype
+    end.compact
+  end
 
 
 end #/PFA
