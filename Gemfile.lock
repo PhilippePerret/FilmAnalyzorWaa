@@ -6,6 +6,7 @@ GEM
     erb (4.0.2)
       cgi (>= 0.3.3)
     fileutils (1.7.1)
+    minitest (5.18.0)
     pretty_inspect (1.4.0)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -23,6 +24,7 @@ DEPENDENCIES
   csv (~> 3.1.0)
   erb (~> 4.0.0)
   fileutils (~> 1.7.0)
+  minitest
   pretty_inspect (~> 1.4.0)
   selenium-webdriver (~> 4.8.0)
   yaml (~> 0.2.0)

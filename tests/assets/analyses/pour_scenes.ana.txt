@@ -1,0 +1,9 @@
+0:00:32.123
+SCENE Première scène
+C'est le résumé de la première scène du film.
+
+La première action de la scène.
+
+0:30:00
+FIN
+

@@ -66,7 +66,7 @@ class Snippet {
   }
 
   writeBaliseAnalyse(){
-    this.remplaceSnippet(){"ANALYSE\n",1, {description:false}}
+    this.remplaceSnippet("ANALYSE\n",1, {description:false})
   }
 
   /**
