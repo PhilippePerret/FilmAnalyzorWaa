@@ -5,7 +5,6 @@
 	----------
 	Pour la gestion des paradigmes de Field
 =end
-require_relative 'lib/Film'
 require_relative 'lib/constants'
 require_relative 'lib/utils'
 require_relative 'lib/extensions/Number'
@@ -64,9 +63,16 @@ def index				;@index||=data[:index]end
 def name				;@name||=data[:name]end
 def description	;@description||=data[:description]end
 def noeuds			;@noeuds||=data[:noeuds]||{}end
+def folder      ;@folder||=data[:folder] end
+
+
+# @prop Dossier dans lequel seront construites les images
+def export_folder
+  @export_folder ||= mkdir(File.join(folder,'export'))
+end
 
 def path
-	@path ||= File.join(film.pfa_folder,"pfa#{index}.yaml")
+	@path ||= File.join(folder,"pfa#{index}.yaml")
 end
 
 end #/class PFA

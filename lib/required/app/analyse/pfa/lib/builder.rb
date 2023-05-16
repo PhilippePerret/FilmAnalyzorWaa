@@ -285,7 +285,7 @@ alias :na :noeudAbs
 
 # Chemin d'accès au fichier image du paradigme
 def image_path
-  @image_path ||= File.join(film.export_folder,'pfa.jpg')
+  @image_path ||= File.join(export_folder,'pfa.jpg')
 end
 
 # Méthode qui crée une bonne fois pour toutes les instances de nœuds absolu
@@ -295,7 +295,7 @@ end
 #   neu = noeudAbs(:ip)
 #
 def prepare_noeuds_abs
-  DATA_NOEUDS.each { |kn, dn| dn.merge!(instance: PFANoeudAbs.new(dn.merge!(pfa: self, film: film)))}
+  DATA_NOEUDS.each { |kn, dn| dn.merge!(instance: PFANoeudAbs.new(dn.merge!(pfa: self)))}
 end
 
 private

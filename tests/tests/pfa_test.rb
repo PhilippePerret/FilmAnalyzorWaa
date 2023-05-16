@@ -23,6 +23,7 @@ class PFATest < Minitest::Test
       index: 1,
       name:  "PFA du film",
       description: "Description du PFA",
+      folder: File.join(ASSETS_FOLDER,'films','film_pour_pfa'), # dossier dans lequel mettre les images
       #
       # Pour mettre les nœuds dramatiques
       # 
@@ -44,11 +45,6 @@ class PFATest < Minitest::Test
       dn.merge!(start_time: dn[:start_time].to_f / 60) unless dn[:start_time].nil?
       dn.merge!(end_time: dn[:end_time].to_f / 60) unless dn[:end_time].nil?
     end
-
-    #
-    # Les données du film courant
-    # 
-    Film.current = Film.new(File.join(ASSETS_FOLDER,'films','film_pour_pfa'))
 
     pfa = PFA.new(data_pfa)
     pfa.build
