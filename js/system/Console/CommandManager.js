@@ -4,7 +4,7 @@
  * ---------------------------
  * Gestionnaire de commandes de la console. C'est d'ici que sont 
  * lancés toutes les commandes tapées en console dès que la touche
- * Entrée est pressée (soumission de la commande.
+ * Entrée est pressée (soumission de la commande).
  * 
  */
 class ConsoleCommandManager {

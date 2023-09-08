@@ -80,6 +80,31 @@ class Video {
     const wVideo  = this.obj.offsetWidth
     window.resizeTo(wText + wVideo + 60, window.outerHeight)
   }
+  /**
+  * Appelée par le menu option "Changer la luminosité de la vidéo"
+  * permet de choisir une luminosité et de l'adapter
+  * @note
+  *   Cette luminosité sera enregistré pour le combo courant et
+  *   remise au prochain chargement.
+  */
+  changeBrightness(luminosity){
+    if ( ! luminosity ) {
+      new InteractiveElement('prompt', "Pourcentage de luminosité à appliquer :", {
+          buttonOk:     {name: "Appliquer", poursuivre: this.changeBrightness.bind(this)}
+        , buttonCancel: {name: 'Renoncer', poursuivre: null}
+        , default: this.brightness || '100%'
+      }).show()
+    } else {
+      /*
+      |  La valeur est choisie, on doit l'appliquer
+      */
+      if ( luminosity.substring(luminosity.length - 1, luminosity.length) != '%' ) {
+        luminosity = luminosity + '%'
+      }
+      this.brightness = luminosity
+      Analyse.current.isModified = true
+    }
+  }
 
   /*
   |  --- Observer Methods ---
@@ -92,7 +117,7 @@ class Video {
   */
   onLoaded(ev){
     if ( !this.isReady ) {    
-      console.info("La vidéo #%s est prête.", this.combo.id)
+      // console.info("La vidéo #%s est prête.", this.combo.id)
       this.controller.onVideoLoaded()
       this.combo.textor.onVideoLoaded()
       this.loadSpash.classList.add('hidden')
@@ -127,14 +152,16 @@ class Video {
   // Récupération (pour enregistrement) des données courantes
   getData(){
     return {
-        options: this.options.data
-      , time:    this.currentTime
+        options:    this.options.data
+      , time:       this.currentTime
+      , brightness: this.brightness
     }
   }
   // Application des données enregistrées
   setData(data){
     if (!data) return
-    this.currentTime = data.time || 0
+    this.currentTime  = data.time || 0
+    this.brightness   = data.brightness || '100%'
     this.options.set(data.options)
   }
 
@@ -153,6 +180,14 @@ class Video {
     if ( this.options.start_on_go && !this.controller.isPlaying) {
       this.controller.togglePlay()
     }
+  }
+  get brightness(){return this._brightness || '100%'}
+  set brightness(v){
+    this._brightness = v
+    // -- Modifier la luminosité de la vidéo --
+    this.obj.style.filter = `brightness(${v})`
+    // -- Modifier le menu --
+    this.options.setOption('brightness')
   }
 
   /**

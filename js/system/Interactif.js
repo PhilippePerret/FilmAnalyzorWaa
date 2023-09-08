@@ -173,7 +173,7 @@ class InteractiveElement {
     params.buttonOk.name      || Object.assign(params.buttonOk, {name: 'OK'})
     params.buttonCancel       || Object.assign(params, {buttonCancel: {name:'Cancel'}})
     params.buttonCancel.name  || Object.assign(params.buttonCancel, {name:'Cancel'})
-    params.poursuivre || params.buttonOk.poursuivre || raise("Il faut absolument définir la fonction pour suivre… (params.poursuivre")
+    params.poursuivre || params.buttonOk.poursuivre || raise("Il faut absolument définir la fonction pour suivre… (params.poursuivre ou buttonOK.poursuivre)")
     return params
   }
 }

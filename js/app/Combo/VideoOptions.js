@@ -39,6 +39,9 @@ class VideoOptions {
     case 'adapt_to_video':
       this.video.adaptWindowToVideo()
       break
+    case 'brightness':
+      this.video.changeBrightness()
+      break;
     default:
       /* - Option dont on doit inverser la valeur - */
       this.data[optid] = !this.data[optid]
@@ -57,12 +60,13 @@ class VideoOptions {
   }
 
   /**
-  * Réglage des options
+  * Réglage des <option> du menu
   */
   set(data){
     this.data = data
     this.setOption('zero')
     this.setOption('start_on_go')
+    this.setOption('brightness')
   }
 
   /**
@@ -75,6 +79,9 @@ class VideoOptions {
       break
     case 'start_on_go':
       this.option('start_on_go').innerHTML = this.start_on_go ? '☒ Démarrer au go' : '☐ Démarrer au go'
+      break
+    case 'brightness':
+      this.option('brightness').innerHTML = `Changer la luminosité (${this.video.brightness})`
       break
     }
   }

@@ -16,7 +16,7 @@
 
 ### Création à partir d’un dossier contenant la vidéo
 
-S’il existe déjà un dossier contenant la vidéo (en `mp4`), il suffit d’ouvrir un Terminal à ce dossier et de jouer la commande `film`. L’application détecte le dossier et demande s’il faut le transformer en dossier d’analyse de film.
+S’il existe déjà un dossier contenant la vidéo (en `mp4`), il suffit d’ouvrir un Terminal à ce dossier et de jouer la commande **`film`**. L’application détecte le dossier et demande s’il faut le transformer en dossier d’analyse de film.
 
 ### Création ex-nihilo
 
