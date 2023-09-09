@@ -11,6 +11,6 @@ const ERRORS = {
 }
 
 const MESSAGES = {
-    helpForGoTo:    "Pour aller quelque part avec la commande G, il faut soit placer le curseur sur une horloge de temps, soit définir un marqueur avec CMD-M (au temps voulu)."
+    helpForGoTo:    "Pour se rendre à un endroit du film avec la commande g (minuscule), il faut soit placer le curseur sur une horloge de temps, soit définir un marqueur avec CMD-M (au temps voulu). Sinon, utiliser G majuscule pour rejoindre le premier temps trouvé dans le texte en remontant."
   , confirmMarker:  "Marqueur de temps placé à %s. Jouer ⌘-m pour le rejoindre."
 }

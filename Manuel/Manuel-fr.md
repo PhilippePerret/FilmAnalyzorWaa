@@ -163,7 +163,7 @@ Pour que la vidéo se mette en route quand on rejoint un temps quelconque, l’a
 
 <a name="keyboard-shortcuts"></a>
 
-## Raccourcis clavier
+## Combinaisons clavier (commandes)
 
 L’application comporte de nombreux raccourcis clavier qui permettent de contrôler la vidéo.
 
@@ -175,6 +175,9 @@ L’application comporte de nombreux raccourcis clavier qui permettent de contr�
 | Une image en avant                                           | ⌘ L       |
 | Une seconde en avant                                         | ⌘ ⇧ L     |
 | Mettre la vidéo courante au premier time-code avant le curseur ([?](#goto-time-avant-cursor)) | ⌘ G       |
+| Placer un marqueur temporel ([?](#go-to-marker))             | ⌘ m       |
+| Se rendre au marqueur temporel défini                        | ⌘ g       |
+| Se rendre au temps défini sous le curseur                    | ⌘ g       |
 | Basculer vers l’autre vidéo                                  | ⌃ v       |
 | Passer seulement à la ligne (sinon [une ligne est naturellement sautée](#regle-double-chariot)) | ⌘⇧↩︎       |
 
@@ -184,9 +187,21 @@ L’application comporte de nombreux raccourcis clavier qui permettent de contr�
 
 ### Aller au temps du curseur (dans la vidéo voulue)
 
-Quand on se trouve à un endroit dans le texte de l’analyse, on peut demander au contrôleur de rejoindre la scène dont il est question en jouant le raccourci clavier `⌘ g`. 
+Quand on se trouve à un endroit dans le texte de l’analyse, on peut demander au contrôleur de rejoindre la scène dont il est question en jouant le raccourci clavier `⌘ G` (noter le « G » majuscule). 
 
 Pour ce faire, l’application remonte jusqu’à trouver le premier temps seul sur une ligne (qu’on a pu placer grâce au snippet `t` par exemple.
+
+### Aller au temps sous le curseur
+
+Jouer `⌘ g` (« g » minuscule) pour aller au temps sous le curseur. La différence avec le « G » majuscule, ici, est que l’application ne remonte pas pour trouver un temps. Si le curseur se trouve sur une horloge (seule sur une ligne), on rejoint ce temps, sinon on rejoint le marqueur défini (cf. ci-dessous). C’est seulement s’il n’y a pas de marqueur défini qu’on recherche le temps de scène.
+
+<a name="go-to-marker"></a>
+
+### Marqueur temporel
+
+Parfois, on a besoin de remonter souvent à un temps qu’on n’a pas forcément mis en timecode dans le texte. Pour ce faire, on place à l’endroit voulu un marqueur temporel à l’aide de `⌘ m` (« m » comme « marqueur ») et on y revient à l’aide de `⌘ g` (« g » comme « go »).
+
+> Noter que si on utilise « g » majuscule au lieu de « g » minuscule, l’interface recherchera dans le texte actif le premier timecode et s’y rendra.
 
 
 

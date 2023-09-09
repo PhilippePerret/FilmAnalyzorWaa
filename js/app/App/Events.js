@@ -24,8 +24,9 @@ class KeyboardEventManager {
       const control = combo.controller
       switch ( ev.key ){
       case 'g': // se rendre au temps voulu ou au marqueur (cf. manuel)
-        control.goToTextTimeOrCurrentMarker()
-        stopEvent(ev); Scene.display(); return false
+        control.goToTextTimeOrCurrentMarker(); return stopEvent(ev)
+      case 'G': // se rendre au premier temps trouvé dans le texte
+        control.goTo(Combo.current.textor.currentTime); return stopEvent(ev)
       case 'h': // Aide
         stopEvent(ev); QuickHelp.toggle(); return false;
       case 'j':case 'J':
