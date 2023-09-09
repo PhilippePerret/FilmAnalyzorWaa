@@ -22,6 +22,40 @@ class Controller {
   }
 
   /**
+  * Pour rejoindre soit le temps sous le curseur dans le champ de
+  * texte, soit le marqueur courant s'il est défini. Si aucune des
+  * deux informations n'est donnée, on indique ce qu'il faut faire.
+  */
+  goToTextTimeOrCurrentMarker(){
+    const lineCurTime = Combo.current.textor.lineCurrentTime
+    if ( lineCurTime ) {
+      /*
+      |  Temps défini sur la ligne du curseur
+      */
+      this.goTo(lineCurTime)
+    } else if ( this.currentMarker ) {
+      /*
+      |  Temps défini par un marqueur
+      */
+      this.goTo(this.currentMarker)
+    } else {
+      /*
+      |  Rien n'est défini
+      */
+      message(MESSAGES.helpForGoTo)
+    }
+  }
+
+  /**
+  * Pour définir le marker courant (avec CMD-m) au temps
+  * courant
+  */
+  defineMarker(){
+    this.currentMarker = this.video.currentTime
+    message(MESSAGES.confirmMarker, [s2h(this.currentMarker)])
+  }
+
+  /**
   * Pour remonter le temps
   */
   moveBackward(shift, alt) {

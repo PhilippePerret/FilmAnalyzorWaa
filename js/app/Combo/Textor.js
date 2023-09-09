@@ -20,11 +20,16 @@ class Textor {
   */
 
   /**
-  * @return [Integer] Le nom de 1000e de secondes correspondant au
+  * @return [Integer] Le nombre de 1000e de secondes correspondant au
   * temps courant, c'est-à-dire au temps où se trouve le curseur.
   * Ce temps est trouvé en remontant le texte jusqu'à trouver une marque
   * de temps (i.e. une ligne contenant une horloge)
   * Si aucun ligne n'est trouvée, c'est 0 qui est retourné.
+  * 
+  * @note
+  *   Si on ne doit regarder que sur la ligne courante (sans remonter
+  *   pour prendre un temps), alors il faut utiliser la méthode 
+  *   suivante (lineCurrentTime)
   */
   get currentTime(){
     const lines  = this.itextarea.textFromStartToCursor().split("\n")
@@ -33,6 +38,16 @@ class Textor {
       if ( REG_TIME_MARK.exec(lines[i]) ) return h2s(lines[i])
     }
     return 0
+  }
+  /**
+  * @return Le nombre de millième de secondes [Integer] du temps écrit
+  * sur la ligne courante, ou NULL si le curseur ne se trouve pas sur
+  * une ligne définissant un temps.
+  */
+  get lineCurrentTime(){
+    const lines = this.itextarea.textFromStartToCursor().split("\n")
+    var i = lines.length - 1 ;
+    return REG_TIME_MARK.exec(lines[i]) ? h2s(lines[i]) : null
   }
 
   /*

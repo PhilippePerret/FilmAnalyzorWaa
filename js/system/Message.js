@@ -26,9 +26,13 @@ function say(msg, options){
   WAA.send({class:'Methods',method:'say', data:options})
 }
 
-function message(str, options){
+function message(str, vars, options){
+  if ( vars ) { str = extrapolateString(str, vars)}
   new MessageClass(str, options).showMessage()
   return true
+}
+function extrapolateString(str, vars){
+  return str.replace(/\%s/g, (match) => { return vars.shift() })
 }
 function error(err){
   new MessageClass(err).showError()
