@@ -93,6 +93,7 @@ class Analyse {
       .then(this.saveTexte.bind(this))
       .then(this.onEndSaving.bind(this))
       .catch(err => {
+        erreur("Impossible d'enregistrer l'analyse (consulter la console avec ⌥⌘i)")
         console.warn("Annulation de l'enregistrement : ", err)
       })
   }
