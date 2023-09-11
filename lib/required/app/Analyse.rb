@@ -7,8 +7,8 @@ class Analyse
   def self.save_data(waadata)
     retour = {ok:true}
     data  = waadata['data']
-    path = data['path'] || raise("Le chemin d'accès au dossier doit être défini.")
-    File.exist?(path) || raise("Le path ''#{path}'' est introuvable…")
+    path = data['path']   || raise("Le chemin d'accès au dossier doit être défini.")
+    File.exist?(path)     || raise("Le path ''#{path}'' est introuvable…")
     File.directory?(path) || raise("Il faut indiquer le chemin au dossier de l'analyse (''#{path}'' n'est pas un dossier).")
     # 
     # On procède à l'enregistrement
@@ -81,10 +81,24 @@ class Analyse
   #     tuée
   # 
   def self.load_current
-    anapath = File.join('.','data.ana.yaml')
+    anapath = File.absolute_path(File.join('.','data.ana.yaml'))
     if File.exist?(anapath)
       # 
       # On se trouve dans le dossier d'une analyse
+      # 
+
+      #
+      # On vérifie que l'adresse n'ait pas changé
+      #
+      analyse = new(File.dirname(anapath))
+      if analyse.path != analyse.data['path']
+        puts "Le chemin d'accès (data['path']) ne correspond pas. Je le corrige.".jaune
+        analyse.data.merge!('path' => analyse.path)
+        File.write(analyse.data_path, analyse.data.to_yaml)
+      end
+
+      #
+      # On charge l'analyse
       # 
       load('path' => File.dirname(anapath))
 
@@ -108,7 +122,7 @@ class Analyse
     return if Dir["./*.mp4"].count == 0
     video_name = File.basename(Dir["./*.mp4"].first)
     # - Ça peut être une analyse -
-    return nil unless Q.yes?("Dois-je transformer ce dossier en dossier d'analyse ?".jaune)
+    Q.yes?("Dois-je transformer ce dossier en dossier d'analyse ?".jaune) || return
     titre = Q.ask("Titre du film : ".jaune)
     data = {
       'titre' => titre, 
@@ -160,7 +174,7 @@ class Analyse
   # 
   def self.load(data)
     # débug
-    puts "Object-Id de la class Analyse : #{self.object_id}"
+    # puts "Object-Id de la class Analyse : #{self.object_id}"
     # /débug
     analyse = new(data['path'])
     analyse.make_backup if analyse.backup_required?

@@ -1,7 +1,5 @@
 
 
-
-
 unless self.respond_to?(:erreur)
 
   def erreur(err)
