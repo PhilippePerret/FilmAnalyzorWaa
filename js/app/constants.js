@@ -17,4 +17,4 @@ const REG_TIME_MARK = new RegExp("^[0-9]:[0-9]{1,2}:[0-9]{1,2}(\.[0-9]{1,3})?$")
 * Taille des sections de texte pour l'enregistrement et le
 * chargement.
 */
-const TEXTE_SECTION_LENGTH = 400 ; // mettre 32000
+const TEXTE_SECTION_LENGTH = 8000 ; // mettre 32000

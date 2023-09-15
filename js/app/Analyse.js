@@ -103,6 +103,14 @@ class Analyse {
     this.isSaving = false
   }
 
+  get isSaving(){ return this._saving }
+  set isSaving(value) {
+    const saveBtn = Analyse.saveBtn
+    DGet('span.content', saveBtn).innerHTML = value ? 'saving…' : 'Enregistrer'
+    saveBtn.classList[value?'add':'remove']('disabled')
+    this._saving = value
+  }
+
   /**
    * @async
   * Méthode, appelée à l'enregistrement, qui vérifie que toutes les
