@@ -117,7 +117,7 @@ class Personnage {
   static traiteSnippet(snippet){
     if ( !this.snippetTable ) return
     const nom = this.snippetTable[snippet.snip]
-    nom && snippet.remplaceSnippet('··' + nom + ' ', snippet.snip.length)
+    nom && snippet.remplaceSnippet(nom + ' ', snippet.snip.length)
   }
 
   static defineSnippetsTable(personnages){
