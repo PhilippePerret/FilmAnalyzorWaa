@@ -10,7 +10,16 @@ class Server
     # pourrait être transformé en analyse
     # 
     FilmAnalyzor::Analyse.check_current_folder
-
+    #
+    # On détruit les hot-backups trop vieux
+    # 
+    # @rappel
+    #   Les "hot-backups" sont des backups fait à chaque 
+    #   enregistrement du texte de l'analyse (contrairement aux
+    #   backups normaux qui ne sont fait qu'une seule fois par jour
+    #   et sont conservés)
+    # 
+    FilmAnalyzor::Analyse.remove_old_hot_backups(File.expand_path('.'))
   end
 
   #

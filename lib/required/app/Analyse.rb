@@ -42,7 +42,9 @@ class Analyse
       #
       # Début de l'enregistrement
       # 
-      File.delete(texte_path) if File.exist?(texte_path)
+      # - backup provisoire -
+      move_to_hot_backups_folder(texte_path) if File.exist?(texte_path)
+      # - écriture dans fichier final -
       File.write(texte_path, waadata['first_portion'])
     elsif waadata.key?('portion_texte')
       #
@@ -67,6 +69,45 @@ class Analyse
     puts "Data transmises : #{waadata}".rouge
   ensure
     WAA.send({class:'Analyse.current',method:'saveTexte', data:retour})
+  end
+
+  # Méthode qui permet, au lieu de détruire le texte actuel, de le
+  # déplacer vers un dossier backup provisoire qui conserve tous les
+  # backups
+  # 
+  # @params tpath [String] Chemin d'accès au fichier texte de l'analyse
+  # 
+  def self.move_to_hot_backups_folder(tpath)
+    begin
+      fname = Time.now.strftime('%Y %m %d %Hh%Mmn%S.ana.txt')
+      fold  = File.join(File.dirname(tpath), 'xhotbackups', Time.now.strftime('%Y-%m-%d'))
+      `mkdir -p "#{fold}"`
+      bpath = File.join(fold, fname)
+      FileUtils.move(tpath, bpath)
+    rescue Exception => e
+      puts e.message.rouge
+    end
+  end
+
+  # Méthode, appelée au lancement de l'application qui détruit les
+  # dossier "hot-backup" trop vieux
+  # 
+  def self.remove_old_hot_backups(afolder)
+    main_folder = File.join(afolder,'xhotbackups')
+    return unless File.exist?(main_folder)
+    require 'date'
+    ilya_trois_jours = Time.now - 3*3600*24
+    nombre_detruits = 0
+    Dir["#{main_folder}/*"].each do |dossier|
+      next unless File.directory?(dossier)
+      next if Date.parse(File.basename(dossier)).to_time > ilya_trois_jours
+      # 
+      # Destruction du dossier
+      # 
+      FileUtils.rm_rf(dossier)
+      nombre_detruits += 1
+    end
+    puts "Vieux hot-backups détruits avec succès (#{nombre_detruits}).".vert if nombre_detruits > 0
   end
 
   ##
@@ -133,6 +174,8 @@ class Analyse
     txtpath = File.join('.','analyse.ana.txt')
     File.write(txtpath, "# Analyse de #{titre}\n\n")
     puts "Analyse initiée avec succès.".vert
+
+    return 
   end
 
 
