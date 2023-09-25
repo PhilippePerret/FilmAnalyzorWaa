@@ -157,10 +157,21 @@ class Analyse
   # dossier courant, pour savoir si ça peut ou pourrait être une
   # analyse.
   # 
+  # @return [Hash] les données de l'analyse, car lorsqu'elle existe,
+  # elle peut définir sa taille.
+  # 
   def self.check_current_folder
     anapath = File.join('.','data.ana.yaml')
-    return if File.exist?(anapath) # C'est déjà une analyse
-    return if Dir["./*.mp4"].count == 0
+    if File.exist?(anapath)
+      # 
+      # <=  C'est déjà une analyse
+      # =>  On regarde si elle définit la taille de la fenêtre. Si
+      #     c'est le cas, on la renvoie pour que WAA puisse la 
+      #     définir en ouvrant la fenêtre du navigateur.
+      adata = YAML.load_file(anapath, **YAML_OPTIONS)
+      return adata
+    end
+    return {} if Dir["./*.mp4"].count == 0
     video_name = File.basename(Dir["./*.mp4"].first)
     # - Ça peut être une analyse -
     Q.yes?("Dois-je transformer ce dossier en dossier d'analyse ?".jaune) || return
@@ -175,7 +186,7 @@ class Analyse
     File.write(txtpath, "# Analyse de #{titre}\n\n")
     puts "Analyse initiée avec succès.".vert
 
-    return 
+    return data
   end
 
 

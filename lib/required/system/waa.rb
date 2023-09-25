@@ -3,7 +3,7 @@
 
   Module WAA
   ----------
-  version 3.1
+  version 3.2
   
   Pour les applications WAA (Without Ajax Application)
   C'est le pendant de la librairie waa.js côté client
@@ -29,7 +29,7 @@ class Waa
   attr_reader :browser, :driver
 
   def version
-    @version ||= '1.0'
+    @version ||= '3.2'
   end
 
   ##
@@ -89,8 +89,11 @@ class Waa
     @browser = browser
   end
 
-  def goto(file)
+  def goto(file, **params)
     driver.navigate.to 'file://'+file
+    if params.key?(:window_size)
+      driver.manage.window.resize_to(*params[:window_size])
+    end
   end
 
   # 

@@ -4,12 +4,14 @@ class Server
   #
   # Méthode appelée au démarrage (avant le chargement de la page)
   # 
+  # @return [Hash] Les données de l'analyse à ouvrir
+  # 
   def self.on_start_up
     #
     # On regarde si le dossier courant est une analyse ou s'il 
     # pourrait être transformé en analyse
     # 
-    FilmAnalyzor::Analyse.check_current_folder
+    analyse_data = FilmAnalyzor::Analyse.check_current_folder
     #
     # On détruit les hot-backups trop vieux
     # 
@@ -20,6 +22,8 @@ class Server
     #   et sont conservés)
     # 
     FilmAnalyzor::Analyse.remove_old_hot_backups(File.expand_path('.'))
+
+    return analyse_data
   end
 
   #
