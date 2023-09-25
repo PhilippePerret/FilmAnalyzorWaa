@@ -3,6 +3,34 @@
 * Gestion des évènements
 */
 
+window.onresize = function(){
+  console.log("Vous venez de redimensionner la fenêtre.")
+}
+/**
+ * Enregistrement de la nouvelle taille de fenêtre
+ * 
+ * @notes
+ * 
+ *  La méthode onresize est appelée à chaque microchangement
+ *  de taille de la fenêtre. On ne peut donc pas lui demander
+ *  de se charger de l'enregistrement de la nouvelle taille.
+ *  On utilise donc un "débouteur" qui va empêcher d'agir avant
+ *  que l'utilisateur a fini de la redimensionner.
+ * 
+*/
+function debounce(func, time = 200){
+  var timer;return function(event){timer && clearTimeout(timer);timer = setTimeout(func, time, event);};
+}
+function onEndResizing() {
+  // console.log('Redimensionnée !', window.outerWidth, window.innerWidth, window.outerHeight, window.innerHeight);
+  const a = Analyse.current;
+  a.data.window_size = [window.outerWidth, window.outerHeight]
+  a.saveOnlyData()
+}
+window.addEventListener("resize", debounce(onEndResizing));
+
+
+
 
 class KeyboardEventManager {
   static onPress(ev){

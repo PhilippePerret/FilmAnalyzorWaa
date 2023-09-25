@@ -91,16 +91,34 @@ class Analyse {
     this.checkData()
       .then(this.saveData.bind(this))
       .then(this.saveTexte.bind(this))
-      .then(this.onEndSaving.bind(this))
+      .then(this.onEndSaving.bind(this, "Analyse complète sauvée."))
       .catch(err => {
         erreur("Impossible d'enregistrer l'analyse (consulter la console avec ⌥⌘i)")
         console.warn("Annulation de l'enregistrement : ", err)
       })
   }
-  onEndSaving(){
-    console.info("-> onEndSaving")
+  onEndSaving(msg){
+    // console.info("-> onEndSaving")
+    console.info(msg)
     this.isModified = false
     this.isSaving = false
+  }
+
+  /**
+  * @async
+  * 
+  * Pour ne sauver que les données, en les vérifiant
+  */
+  saveOnlyData(){
+    if ( this.isSaving ) return
+    this.isSaving = true
+    this.checkData()
+      .then(this.saveData.bind(this))
+      .then(this.onEndSaving.bind(this, "Données de l'analyse sauvées."))
+      .catch(err => {
+        erreur("Impossible d'enregistrer les données de l'analyse (consulter la console avec ⌥⌘i)")
+        console.warn("Annulation de l'enregistrement : ", err)
+      })
   }
 
   get isSaving(){ return this._saving }
