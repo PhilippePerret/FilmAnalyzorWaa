@@ -65,6 +65,10 @@ class Video {
   /**
   * Appelée par le menu option "Adapter à la fenêtre" pour adapter
   * la taille de la vidéo à la taille de la fenêtre
+  * 
+  * @note
+  *   - Apppelé aussi au chargement de l'application, maintenant que
+  *     la taille de la fenêtre est enregistrée.
   */
   adaptToWindow(){
     const wWindow = window.innerWidth

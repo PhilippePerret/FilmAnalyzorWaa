@@ -49,7 +49,7 @@ class Analyse {
     WAA.send({class:'FilmAnalyzor::Analyse',method:'load_current'})
   }
   /**
-  * Pour ouvrir une analyse
+  * Pour ouvrir une analyse quelconque
   */
   static open(path){
     if ( path && path.type && path.type == 'folder' ) {
@@ -58,9 +58,23 @@ class Analyse {
       Finder.choose({wantedType:'folder'}).then(this.open.bind(this)).catch(err=>{console.log("Renoncement")})
     }
   }
-  /* Méthode appelée par le serveur au retour de la précédente */
+  /**
+   * Méthode appelée par le serveur au retour de la précédente 
+   * 
+   * @notes
+   * 
+   *  - L'instanciation de l'analyse place son(ses) texte(s) dans
+   *    le(s) champ(s) et dispatche les données.
+   * 
+   */
   static onLoad(retour){
     this.current = new Analyse(retour)
+    /*
+    |  Le chargement a pu définir une taille précise de fenêtre,
+    |  donc on doit adapter la vidéo (plus tard, on pourra imaginer
+    |  une option qui dise de le faire ou de ne pas le faire.)
+    */
+    Combo.un.video.adaptToWindow()
   }
 
 
@@ -191,6 +205,11 @@ class Analyse {
   * 
   * Après que les données ont été checkées (checkData) on peut les
   * enregistrer.
+  * 
+  * @note
+  * 
+  *   - Utiliser la méthode saveOnlyData pour sauver les données,
+  *     pas cette méthode (qui ne checke pas les données)
   */
   saveData(retour){
     console.info("-> saveData / retour = ", retour)
