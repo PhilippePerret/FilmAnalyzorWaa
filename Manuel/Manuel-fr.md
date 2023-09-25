@@ -268,7 +268,7 @@ La suite de la description de la scène, après une ligne vide.
 
 #### Pour ne mettre qu’un retour chariot
 
-Jouer la touche Entrée avec la touche majuscule tenue.
+Jouer la touche Entrée avec la touche majuscule tenue (@obsolète, normalement cette fonctionnalité a été supprimée).
 
 
 

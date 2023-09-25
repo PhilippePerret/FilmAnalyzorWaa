@@ -29,13 +29,13 @@ class KeyboardEventManager {
         control.goTo(Combo.current.textor.currentTime); return stopEvent(ev)
       case 'h': // Aide
         stopEvent(ev); QuickHelp.toggle(); return false;
-      case 'j':case 'J':
+      case 'j':case 'J': // reculer
         control.moveBackward(ev.shiftKey, ev.ctrlKey);return stopEvent(ev)
-      case 'k':
+      case 'k': // Jouer la vidéo
         control.togglePlay();return stopEvent(ev)
-      case 'l': case 'L':
+      case 'l': case 'L': // avancer
         control.moveForward(ev.shiftKey, ev.ctrlKey);return stopEvent(ev)
-      case 'm': case 'M':
+      case 'm': case 'M': // placer le marqueur
         control.defineMarker();return stopEvent(ev)
       case 'p': // panneau des personnages
         Personnage.toggle(); return stopEvent(ev)

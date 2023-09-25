@@ -6,6 +6,11 @@
  * 
  */
 
+/*
+|  Expression régulière pour trouver le début d'un snippet
+*/
+const REG_BUTEE_SNIPPET = /^[ \n\(\{\["' ]$/
+
 class Textarea {
 
   /**
@@ -207,23 +212,19 @@ class Textarea {
   get wordBeforeCursor(){ return this.getWordBeforeCursor() }
 
   getWordBeforeCursor(){
-    var char = null
-    var start = this.selStart - 1
-    var mot = []
-    while(char != ' ' && char != "\n" && start > -1){
+    var char, start = this.selStart - 1, mot = [];
+    while ( start > -1 ) {
       char = this.content.substring(start, start+1)
-      // console.log("char = '%s', start = %i", char, start)
-      mot.push(char)
-      -- start
-      if ( start < 0 ) {
-        mot.push('') // pour le pop
-        break
+      if ( char.match(REG_BUTEE_SNIPPET) ) { 
+        break; // On a trouvé un caractère butée
+      } else {
+        mot.push(char)
+        -- start
       }
     }
-    mot.pop()
     return mot.reverse().join('')
   }
-
+  
   /**
    * Retourne le mot après le curseur
    * 
