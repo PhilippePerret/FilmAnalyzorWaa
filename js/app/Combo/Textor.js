@@ -57,9 +57,6 @@ class Textor {
   onKeyUp(ev){
     // console.log("ev = ", ev)
     if ( ! KeyboardEventManager.onUpCommon(ev) ) { return false  }
-    if ( ev.key == 'Enter' ) {
-      ev.shiftKey || this.itextarea.replaceSelection("\n", 'end')
-    }
   }
   onKeyDown(ev){
 
