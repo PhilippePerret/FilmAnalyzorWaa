@@ -54,7 +54,7 @@ class Snippet {
   }
 
   writeSceneAtCursor(){
-    this.remplaceSnippet('SCENE', 1, {description:"PITCH\nRÉSUMÉ"})
+    this.remplaceSnippet('SCENE', 1, {description:"PITCH"})
   }
 
   writeSequenceAtCursor(){
@@ -81,7 +81,7 @@ class Snippet {
     var offstart = 0, offend = 0 ;
     if ( options.description ){ 
       var ajout = ('string' == typeof options.description) ? ` ${options.description}` : " DESCRIPTION"
-      ajout += "\n\n__"
+      // ajout += "\n\n__"
       offstart  = ajout.length - 1
       offend    =  offstart - 5
       str = str + ajout
