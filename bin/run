@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+Dir.chdir(__dir__) do
+  `cd "#{__dir__}" && film > /dev/null`
+end

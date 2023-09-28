@@ -134,8 +134,7 @@ C’est le menu qui se trouve tout à gauche sous la fenêtre de la vidéo. Il p
 ## La vidéo du film
 
 * La vidéo de référence doit être au format `mp4`.
-* elle doit se trouver dans le dossier de l’analyse (elle est mise dans `/me/Sites/FilmAnalyzor` au moment de son analyse, penser à la retirer lorsque l’analyse est terminée)
-* en fait, la déplacer simplement là quand on analyse le film.
+* elle doit se trouver dans le dossier de l’analyse (elle est mise dans `FilmAnalyzor/videos/` au moment de son analyse)
 
 Si la vidéo porte un des noms suivants, ce nom n’a pas besoin d’être défini dans le fichier `data.ana.yaml` :
 
@@ -232,7 +231,9 @@ Des snippets permettent de gérer facilement les éléments :
 
 ### Règle des doubles chariots
 
-Ce principe veut que tout élément de l’analyse doit être séparé par des doubles chariot. C’est pour cette raison que lorsqu’on tape un retour chariot dans le champ de texte, une ligne est passée.
+Ce principe veut que tout élément de l’analyse doit être séparé par des doubles chariot.
+
+> Mais noter qu’on s’en fiche quand on interface l’analyse. Par exemple, pour produire les analyses de film dans la collection « Les Leçons du cinéma », c’est le module produisant le livre qui parse le fichier d’analyse.
 
 Cela commence avec le temps d’une scène :
 
@@ -266,10 +267,6 @@ L'objectif un peu plus détaillé.
 La suite de la description de la scène, après une ligne vide.
 ~~~
 
-#### Pour ne mettre qu’un retour chariot
-
-Jouer la touche Entrée avec la touche majuscule tenue (@obsolète, normalement cette fonctionnalité a été supprimée).
-
 
 
 ## Annexe
@@ -280,3 +277,6 @@ Jouer la touche Entrée avec la touche majuscule tenue (@obsolète, normalement 
 ln -s /Users/me/Programmes/FilmAnalyzor/analyzor.rb /usr/local/bin/film
 ~~~
 
+### Script d’ouverture de l’analyse
+
+Pour ne pas avoir à ouvrir une fenêtre de Terminal et taper `film`, on peut simplement copier le binaire `bin/run` dans le dossier de l’analyse (le dossier principal, contenant les deux fichiers `data.ana.yaml` et `analyse.ana.txt`. Il suffit de double-cliquer sur ce fichier pour lancer l’analyse en question.

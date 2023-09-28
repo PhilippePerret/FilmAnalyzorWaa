@@ -57,7 +57,8 @@ class Video {
   */
   load(src){
     this.isReady = false
-    this.source.src = 'http://localhost/FilmAnalyzor/' + src
+    // this.source.src = 'http://localhost/FilmAnalyzor/' + src
+    this.source.src = 'videos/' + src
     this.loadSpash.classList.remove('hidden')
     this.obj.load()
   }

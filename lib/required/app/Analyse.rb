@@ -265,20 +265,97 @@ class Analyse
 
   def check_video
     video_name || raise("Il faut absolument définir le nom du fichier vidéo dans data.ana.yaml s'il ne possède pas le nom par défaut (:video).")
-    video_path = File.join(path, video_name)
-    video_path_in_sites = File.join(Dir.home,'Sites','FilmAnalyzor',video_name)
-    return true if File.exist?(video_path_in_sites)
-    #
-    # La vidéo n'existe pas dans le dossier Sites. Si elle existe
-    # dans le dossier de l'analyse, on la copie
-    # 
-    if File.exist?(video_path)
-      puts "Copie de la vidéo, merci de patienter…".bleu
-      FileUtils.cp(video_path, video_path_in_sites)
-      puts "Vidéo copiée. Merci de votre patience.".vert
+    # On essaie maintenant de mettre la vidéo dans le dossier de l'application
+    # video_path_in_sites = File.join(Dir.home,'Sites','FilmAnalyzor',video_name)
+    video_path_in_sites = File.join(APP_FOLDER,'videos',video_name)
+    # puts "video_path_in_sites = #{video_path_in_sites.inspect}".bleu
+    # puts "Existe ? #{File.exist?(video_path_in_sites).inspect}".bleu
+    if File.exist?(video_path_in_sites)
+      return true
     else
-      raise "La vidéo '#{video_path}' est malheureusement introuvable. Je ne peux pas ouvrir cette analyse."
+      #
+      # La vidéo n'existe pas dans le dossier Sites. Si elle existe
+      # dans le dossier de l'analyse, on la copie.
+      # 
+      # Mais puisque les vidéos se trouvent maintenant dans le dosssier
+      # de l'application (FilmAnalyzor/videos/) — depuis Sonoma qui a
+      # encore cassé les choses au niveau des sites Persos… — il ne 
+      # faut pas les conserver toutes. cf. la méthode #deal_with_videos
+      # pour les explications détaillées.
+      # 
+      deal_with_videos
     end
+  end
+
+
+  ##
+  # Depuis MacOS 14 et Sonoma (qui a encore tout cassé au niveau du
+  # serveur local — localhost), on ne met plus la vidéo dans le dossier
+  # site, on la met dans le dossier 'videos' de l'application, ce qui
+  # simplifie grandement les histoires de CORS.
+  # Cependant, afin de ne pas exploser la taille de l'application en
+  # multipliant les vidéos contenues, on les gère pour garder seulement
+  # les 6 dernières utilisées (ce qui fait à peu près 3Mo au format
+  # ou je les fais avec HandBrake).
+  def deal_with_videos
+    #
+    # Chemin d'accès à la vidéo originale (elle peut ne pas exister
+    # pour alléger l'analyse)
+    # 
+    video_path = File.join(path, video_name)
+    #
+    # Chemin d'accès à la vidéo dans le dossier FilmAnalyzor/videos
+    # 
+    video_dest =  File.join(APP_FOLDER,'videos',video_name)
+    #
+    # Si la vidéo a été trouvé, on peut la copier. Sinon, on donne
+    # un message d'erreur pour expliquer à l'utilisateur comment
+    # faire.
+    if File.exist?(video_path)
+      puts "Déplacement de la vidéo, merci de patienter…".bleu
+      FileUtils.move(video_path, video_dest)
+      puts "Vidéo déplacée. Merci de votre patience.".vert
+      #
+      # Maintenant que la vidéo a été copiée, on peut gérer les
+      # vidéos qu'on garde ou qu'on retire
+      # 
+      memorize_videos_and_update_list
+    else
+      puts <<~EOT.orange
+        
+        La vidéo de cette analyse (#{video_name} dans le dossier
+         #{path}) est
+        malheureusement introuvable, je ne peux donc pas la récupérer
+        pour la mettre dans mon dossier afin de pouvoir l'ouvrir. Il
+        faut la récupérer, la placer à l'endroit indiqué et relancer
+        l'analyse.
+        Merci à vous.
+
+        EOT
+    end    
+  end
+
+  # Méthode fonctionnant avec la précédente, qui gère la liste des
+  # vidéos conservées
+  def memorize_videos_and_update_list
+    list_path = File.join(APP_FOLDER,'videos','videos_list')
+    list_videos = if File.exist?(list_path)
+      File.read(list_path).strip.split("\n")
+    else
+      []
+    end
+    # Faut-il supprimer une vidéo ?
+    while list_videos.count > 6
+      vname = list_videos.shift
+      vpath = File.join(APP_FOLDER,'videos',vname)
+      File.delete(vpath) if File.exist?(vpath) # elle a pu être détruite manuellement
+    end
+    #
+    # On ajoute la nouvelle vidéo et on enregistre la liste
+    # (seulement si le nom n'est pas connu)
+    # 
+    list_videos << video_name unless list_videos.include?(video_name)
+    File.write(list_path, list_videos.join("\n"))
   end
 
   ##
